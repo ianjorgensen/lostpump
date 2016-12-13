@@ -1,0 +1,45 @@
+<! DOCTYPE html>
+<html>
+<head>
+  <title>Lost Pump</title>
+  <script src='/js/lib/vue-2.1.4.js'></script>
+  <script src='/js/lib/jquery-3.1.1.min.js'></script>
+
+  <script src='/js/components/settingsComponent.js'></script>
+  <script src='/js/main.js'></script>
+
+  <link rel='stylesheet' href='/css/reset.css'>
+</head>
+<body>
+  <div id='app'>
+  <section class='intro'>
+    <h1>Lost Pump Tool</h1>
+    <p>Use this tool to generate MDI use instruction to when you for some reason cannot use your pump.</p>
+  </section>
+  <section class='pump'>
+    <label for="pumpid">Pump ID</label>
+    <input v-on:change='loadSample' type="text" id="pumpid">
+    or
+    <a href='#' v-on:click='createPump'>click here to create a new pump</a>
+  </section>
+  <section v-if='pumpFound === false' class='notfound'>
+    <h2>No pump found</h2>
+  </section>
+  <section v-if='waiting' class='waiting'>Waiting for data from the server</section>
+  <section v-if='!waiting && pumpFound' class='pumpSettings'>
+    <h2>Basal rate</h2>
+    <settings-module v-bind:propdata='settings.basal'></settings-module>
+    <h2>Carb Ratio</h2>
+    <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
+    <h2>Insulin Sensitivity</h2>
+    <settings-module v-bind:propdata='settings.insulinSens'></settings-module>
+    <h2>Carb Ratio</h2>
+    <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
+  </section>
+  <section class='regiment'>
+    <p></p>
+    <a href='#' v-on:click='print'>Print</a>
+  </section>
+  </div>
+</body>
+</html>
