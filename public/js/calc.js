@@ -11,7 +11,6 @@ var average = function(rows) {
 }
 
 var timing = function(rows) {
-  console.log('rows',rows);
   if (!rows.length) {
     return;
   }
@@ -145,14 +144,13 @@ var calculate = function(pumpSettings) {
       dosesPerHour[6]) * 1.2
 
     var rapidDoseBreakDown = {
-      '24': roundHalf(dosesPerHour[0] + dosesPerHour[1] + dosesPerHour[2] + dosesPerHour[3]),
-      '4': roundHalf(dosesPerHour[4] + dosesPerHour[5] + dosesPerHour[6] + dosesPerHour[7]),
-      '8': roundHalf(dosesPerHour[8] + dosesPerHour[9] + dosesPerHour[10] + dosesPerHour[11]),
-      '12': roundHalf(dosesPerHour[12] + dosesPerHour[13] + dosesPerHour[14] + dosesPerHour[15]),
-      '16': roundHalf(dosesPerHour[16] + dosesPerHour[17] + dosesPerHour[18] + dosesPerHour[19]),
-      '20': roundHalf(dosesPerHour[20] + dosesPerHour[21] + dosesPerHour[22] + dosesPerHour[23])
+      't24': roundHalf(dosesPerHour[0] + dosesPerHour[1] + dosesPerHour[2] + dosesPerHour[3]),
+      't4': roundHalf(dosesPerHour[4] + dosesPerHour[5] + dosesPerHour[6] + dosesPerHour[7]),
+      't8': roundHalf(dosesPerHour[8] + dosesPerHour[9] + dosesPerHour[10] + dosesPerHour[11]),
+      't12': roundHalf(dosesPerHour[12] + dosesPerHour[13] + dosesPerHour[14] + dosesPerHour[15]),
+      't16': roundHalf(dosesPerHour[16] + dosesPerHour[17] + dosesPerHour[18] + dosesPerHour[19]),
+      't20': roundHalf(dosesPerHour[20] + dosesPerHour[21] + dosesPerHour[22] + dosesPerHour[23])
     }
-
   }
 
   return {

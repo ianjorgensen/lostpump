@@ -56,6 +56,7 @@ var emptyPumpSettings = {
 // ((5 * d) + (4 * a) + (3 * b)) * 1.2
 // 12
 var globalPumpSettings;
+var regiment;
 
 $(function(){
   var createSettingsSection = function(dataSettings) {
@@ -64,19 +65,26 @@ $(function(){
       data: {
         waiting: false,
         pumpFound: null,
+        regiment: null,
         settings: JSON.parse(JSON.stringify(dataSettings))
       },
       updated: function() {
 
         globalPumpSettings = JSON.parse(JSON.stringify(this.$data));
 
-        var result = calculate(globalPumpSettings.settings);
-
-        console.log('updated data', globalPumpSettings, result);
+        console.log('update vue');
+        //console.log('updated data', globalPumpSettings, result);
       },
       methods: {
         updateSettings: function(settings) {
           this.settings = JSON.parse(JSON.stringify(settings))
+        },
+        calculateRegiment: function() {
+          var result = calculate(this.settings);
+          
+          if(result.rapidDoseBreakDown) {
+            this.regiment = result;
+          }
         },
         createPump: function() {
           this.pumpFound = true;
