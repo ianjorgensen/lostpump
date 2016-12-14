@@ -7,6 +7,7 @@
   <script src="https://use.fontawesome.com/e81f5f3c0d.js"></script>
 
   <script src='/js/components/settingsComponent.js'></script>
+  <script src='/js/calc.js'></script>
   <script src='/js/main.js'></script>
 
 <!-- RESET IS CALLED THROUGH A PARTIAL AT THE BEGINNING OF SASS FILE -->
@@ -34,12 +35,13 @@
     <h2>Carb Ratio</h2>
     <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
     <h2>Insulin Sensitivity</h2>
-    <settings-module v-bind:propdata='settings.insulinSens'></settings-module>
-    <h2>Carb Ratio</h2>
+    <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
+    <h2>BG Target</h2>
     <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
   </section>
   <section class='regiment'>
     <p></p>
+    
     <!-- HIDE PRINT-BUTTON IF THERE ARE NO RESULTS -->
     <a href='#' class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
   </section>
