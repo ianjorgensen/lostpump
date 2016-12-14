@@ -7,10 +7,11 @@
   <script src="https://use.fontawesome.com/e81f5f3c0d.js"></script>
 
   <script src='/js/components/settingsComponent.js'></script>
+  <script src='/js/calc.js'></script>
   <script src='/js/main.js'></script>
 
-<!-- RESET IS CALLED THROUGH A PARTIAL AT THE BEGINNING OF SASS FILE -->
-<link rel='stylesheet' href='/css/style.min.css'>
+  <!-- RESET IS CALLED THROUGH A PARTIAL AT THE BEGINNING OF SASS FILE -->
+  <link rel='stylesheet' href='/css/style.min.css'>
 </head>
 <body>
   <div id='app'>
@@ -34,12 +35,63 @@
     <h2>Carb Ratio</h2>
     <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
     <h2>Insulin Sensitivity</h2>
-    <settings-module v-bind:propdata='settings.insulinSens'></settings-module>
-    <h2>Carb Ratio</h2>
+    <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
+    <h2>BG Target</h2>
     <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
+    <a href='#' class="button" v-on:click='calculateRegiment'>Calculate MDI Doses</a>
   </section>
-  <section class='regiment'>
-    <p></p>
+  <section v-if='!!regiment' class='regiment'>
+    <p>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes:</p>
+    <p>Du har to valgmuligheder:</p>
+    <p>Du har KUN HURTIGVIRKENDE INSULIN (novorapid, humalog, apidra) i penne/engangssprøjter:</p>
+    <ul>
+      <li>
+        a) Til at dække din manglende basalrate, skal du tage:
+        <ul>
+          <li>Kl. ca. 24: {{regiment.rapidDoseBreakDown.t24}} enheder</li>
+          <li>kl. ca. 04: {{regiment.rapidDoseBreakDown.t4}} enheder</li>
+          <li>kl. ca. 08: {{regiment.rapidDoseBreakDown.t8}} enheder</li>
+          <li>kl. ca. 12: {{regiment.rapidDoseBreakDown.t12}} enheder</li>
+          <li>kl. ca. 16: {{regiment.rapidDoseBreakDown.t16}} enheder</li>
+          <li>kl. ca. 20: {{regiment.rapidDoseBreakDown.t20}} enheder</li>
+        </ul>
+      </li>
+      <li>b) Til at dække din bolus skal du:
+        <ul>
+          <li>- Tage 1 enhed for ca. hver {{regiment.carbRatio}} gram kulhydrat du spiser</li>
+          <li>- Hvis dit BS er højere end dit BS-mål, skal du lægge oveni:
+            <ul>
+              <li>- ca. 1 enhed hvis du er {{regiment.insulinSensitivity}} mmol/l højere,</li>
+              <li>- ca. 2 enheder hvis {{2*regiment.insulinSensitivity}} mmol/l  højere,</li>
+              <li>- og så fremdeles</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p>Du har BÅDE noget HURTIGVIRKENDE insulin og LANGSOMTVIRKENDE (levemir eller lantus)</p>
+    <ul>
+      <li>
+        a) Basalraten dækkes af 2 injektioner langsomtvirkende insulin:
+        <ul>
+          <li>Kl. ca. 7 tager du {{regiment.basalDoseMorning}} enheder og kl. ca. 19 tager du {{regiment.basalDoseAfternoon}} enheder</li>
+        </ul>
+      </li>
+      <li>
+        b) Til at dække din bolus skal du tage hurtigvirkende insulin:
+        <ul>
+          <li>- 1 enhed for ca. hver {{regiment.carbRatio}} gram kulhydrat du spiser</li>
+          <li>
+            - Hvis dit BS er højere end dit BS-mål, skal du lægge oveni:
+            <ul>
+              <li>- ca. 1 enhed hvis du er {{regiment.insulinSensitivity}} mmol/l højere,</li>
+              <li>- ca. 2 enheder hvis {{2*regiment.insulinSensitivity}} mmol/l  højere,</li>
+              <li>- og så fremdeles</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
     <!-- HIDE PRINT-BUTTON IF THERE ARE NO RESULTS -->
     <a href='#' class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
   </section>

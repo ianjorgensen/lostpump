@@ -1,6 +1,6 @@
 var settingsSection;
 
-var data1 = {
+var samplePumpSettings = {
   settings: {
     basal: {
       headers: ['kl.','ie/t'],
@@ -10,7 +10,7 @@ var data1 = {
       headers: ['kl.','gram/IE',],
       rows: [['00:00','7'],['11:00','8'],['17:30', '7']]
     },
-    insulinSens: {
+    insulinSensitivity: {
       headers: ['kl.','mmol/l/IE'],
       rows: [['00:00','1.3']]
     },
@@ -21,7 +21,7 @@ var data1 = {
   }
 }
 
-var dataEmpty = {
+var emptyPumpSettings = {
   settings: {
     basal: {
       headers: ['kl.','ie/t'],
@@ -31,7 +31,7 @@ var dataEmpty = {
       headers: ['kl.','gram/IE',],
       rows: [['','']]
     },
-    insulinSens: {
+    insulinSensitivity: {
       headers: ['kl.','mmol/l/IE'],
       rows: [['','']]
     },
@@ -40,7 +40,23 @@ var dataEmpty = {
       rows: [['','','']]
     }
   }
-};
+}
+
+
+
+// ((1 * b) + (8 * c) + (3 * d)) * 1.2
+// 13
+/*
+1: convert kl. to absolute minutes in day
+
+1440
+2: conver previus to total minutes per day for when the period is active
+
+*/
+// ((5 * d) + (4 * a) + (3 * b)) * 1.2
+// 12
+var globalPumpSettings;
+var regiment;
 
 $(function(){
   var createSettingsSection = function(dataSettings) {
@@ -49,18 +65,30 @@ $(function(){
       data: {
         waiting: false,
         pumpFound: null,
+        regiment: null,
         settings: JSON.parse(JSON.stringify(dataSettings))
       },
       updated: function() {
-        console.log('updated data', JSON.stringify(this.$data));
+
+        globalPumpSettings = JSON.parse(JSON.stringify(this.$data));
+
+        console.log('update vue');
+        //console.log('updated data', globalPumpSettings, result);
       },
       methods: {
         updateSettings: function(settings) {
           this.settings = JSON.parse(JSON.stringify(settings))
         },
+        calculateRegiment: function() {
+          var result = calculate(this.settings);
+          
+          if(result.rapidDoseBreakDown) {
+            this.regiment = result;
+          }
+        },
         createPump: function() {
           this.pumpFound = true;
-          this.updateSettings(dataEmpty.settings);
+          this.updateSettings(emptyPumpSettings.settings);
         },
         loadSample: function() {
           this.waiting = true;
@@ -68,9 +96,9 @@ $(function(){
             return function() {
               _this.waiting = false;
               _this.pumpFound = true;
-              _this.updateSettings(data1.settings);
+              _this.updateSettings(samplePumpSettings.settings);
             };
-          }(this), 3000);
+          }(this), 10);
         },
         print: function() {
           window.print()
@@ -79,5 +107,5 @@ $(function(){
     })
   }
 
-  createSettingsSection(dataEmpty.settings);
+  createSettingsSection(emptyPumpSettings.settings);
 });
