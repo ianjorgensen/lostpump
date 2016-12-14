@@ -117,11 +117,17 @@ h2 {
 
 @media print {
 
-   .pump, .notfound, .waiting, .print {
-    display: none;
-   }
+  #app {
+    border-radius: 0px !important;
+    box-shadow: 0px 0px 0px red !important;
+  }
 
-   table {
+  // Hide stuff not needed in print
+  .pump, .notfound, .waiting, .print {
+  display: none;
+  }
+
+  table {
 
      border: 0px;
 
@@ -136,10 +142,5 @@ h2 {
      tr {
 
     }
-  }
-
-  div#app {
-    border-radius: 0px;
-    box-shadow: 0px 0px 0px #fff;
   }
 }
