@@ -230,18 +230,22 @@ h2 {
 
   table {
 
-     border: 0px;
+    box-shadow: none;
 
-     th {
+    border: 0px;
 
-     }
+    th {
 
-     tr {
+      border-right: 0px;
 
-     }
+    }
 
-     tr {
+    tr {
 
+    }
+
+    tr:last-child {
+      display: none;
     }
   }
 }
