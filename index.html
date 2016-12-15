@@ -16,78 +16,77 @@
 <body>
   <div id='app'>
   <section class='intro'>
-    <h1>lost your pump? <b>get instructions for multiple daily injections (MDI)</b></h1>
-    <p class="description">Use this tool to generate MDI use instruction to when you for some reason cannot use your pump.</p>
+    <h1>Er din insulinpumpe kaput?</h1>
+    <p class="description">Brug dette værktøj til at generere injektions-instrukser, når din insulinpumpe, af den ene eller anden årsag, ikke er tilgængelig. Start med at søge efter din pumpe ID. Hvis den ikke findes i systemet, så opret den med dens ID og indstillinger, tryk GEM OG KALKULÉR, og systemet vil udregne dine indjektions-instrukser.
   </section>
   <section class='pump'>
-    <label for="pumpid">Pump ID</label>
+    <label for="pumpid">Pumpe ID:</label>
     <input v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
-    or
-    <a href='#' class="button" v-on:click='createPump'>create a new pump</a>
+    eller
+    <a href='#' class="button" v-on:click='createPump'>opret ny pumpe</a>
   </section>
   <section v-if='pumpFound === false' class='notfound'>
-    <h2>No pump found, create a new pump</h2>
+    <h2>Ingen pumpe fundet. Opret en ny pumpe.</h2>
   </section>
-  <section v-if='waiting' class='waiting'><h2>Waiting for data from the server<div class="spinner"></div>
+  <section v-if='waiting' class='waiting'><h2>Søger efter pumpe-data<div class="spinner"></div>
   </h2></section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
-    <h2>Basal rate</h2>
+    <h2>Basal-rate</h2>
     <settings-module v-bind:propdata='settings.basal'></settings-module>
-    <h2>Carb Ratio</h2>
+    <h2>Kulhydrat-rate</h2>
     <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
-    <h2>Insulin Sensitivity</h2>
+    <h2>Insulin Sensisivitet</h2>
     <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
-    <h2>BG Target</h2>
+    <h2>Blodsukker Target</h2>
     <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
-    <a href='#' class="button" v-on:click='calculateRegiment'>Save Settings and Calculate MDI Doses</a>
+    <a href='#' class="button" v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
   </section>
   <section v-if='!!regiment' class='regiment'>
-    <p>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes:</p>
+    <p><i>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes.</i></p>
     <p>Du har to valgmuligheder:</p>
-    <p>Du har KUN HURTIGVIRKENDE INSULIN (novorapid, humalog, apidra) i penne/engangssprøjter:</p>
+    <h3>Du har <b>KUN HURTIGVIRKENDE INSULIN</b> (novorapid, humalog, apidra) i penne/engangssprøjter</h3>
     <ol>
       <li>
-        a) Til at dække din manglende basalrate, skal du tage:
+        Til at dække din manglende basalrate, skal du tage:
         <ul>
-          <li>Kl. ca. 24: {{regiment.rapidDoseBreakDown.t24}} enheder</li>
-          <li>kl. ca. 04: {{regiment.rapidDoseBreakDown.t4}} enheder</li>
-          <li>kl. ca. 08: {{regiment.rapidDoseBreakDown.t8}} enheder</li>
-          <li>kl. ca. 12: {{regiment.rapidDoseBreakDown.t12}} enheder</li>
-          <li>kl. ca. 16: {{regiment.rapidDoseBreakDown.t16}} enheder</li>
-          <li>kl. ca. 20: {{regiment.rapidDoseBreakDown.t20}} enheder</li>
+          <li>Kl. ca. 24: <b>{{regiment.rapidDoseBreakDown.t24}} enheder</b></li>
+          <li>Kl. ca. 04: <b>{{regiment.rapidDoseBreakDown.t4}} enheder</b></li>
+          <li>Kl. ca. 08: <b>{{regiment.rapidDoseBreakDown.t8}} enheder</b></li>
+          <li>Kl. ca. 12: <b>{{regiment.rapidDoseBreakDown.t12}} enheder</b></li>
+          <li>Kl. ca. 16: <b>{{regiment.rapidDoseBreakDown.t16}} enheder</b></li>
+          <li>Kl. ca. 20: <b>{{regiment.rapidDoseBreakDown.t20}} enheder</b></li>
         </ul>
       </li>
-      <li>b) Til at dække din bolus skal du:
+      <li> Til at dække din bolus skal du:
         <ul>
-          <li>- Tage 1 enhed for ca. hver {{regiment.carbRatio}} gram kulhydrat du spiser</li>
-          <li>- Hvis dit BS er højere end dit BS-mål, skal du lægge oveni:
+          <li> Tage <b>1 enhed</b> for ca. hver <b>{{regiment.carbRatio}} gram</b> kulhydrat du spiser</li>
+          <li> Hvis dit BS er højere end dit BS-mål, skal du lægge oveni:
             <ul>
-              <li>- ca. 1 enhed hvis du er {{regiment.insulinSensitivity}} mmol/l højere,</li>
-              <li>- ca. 2 enheder hvis {{2*regiment.insulinSensitivity}} mmol/l  højere,</li>
-              <li>- og så fremdeles</li>
+              <li> ca. <b>1 enhed</b> hvis du er <b>{{regiment.insulinSensitivity}} mmol/l</b> højere,</li>
+              <li> ca. <b>2 enheder</b> hvis <b>{{2*regiment.insulinSensitivity}} mmol/l</b>  højere,</li>
+              <li> og så fremdeles...</li>
             </ul>
           </li>
         </ul>
       </li>
     </ol>
-    <p>Du har BÅDE noget HURTIGVIRKENDE insulin og LANGSOMTVIRKENDE (levemir eller lantus)</p>
+    <h3>Du har <b>BÅDE</b> noget <b>HURTIGVIRKENDE</b> insulin og <b>LANGSOMTVIRKENDE</b> (levemir eller lantus)</h3>
     <ol>
       <li>
-        a) Basalraten dækkes af 2 injektioner langsomtvirkende insulin:
+        Basalraten dækkes af 2 injektioner langsomtvirkende insulin:
         <ul>
-          <li>Kl. ca. 7 tager du {{regiment.basalDoseMorning}} enheder og kl. ca. 19 tager du {{regiment.basalDoseAfternoon}} enheder</li>
+          <li>Kl. ca. 7 tager du <b>{{regiment.basalDoseMorning}} enheder</b> og kl. ca. 19 tager du <b>{{regiment.basalDoseAfternoon}} enheder</b>.</li>
         </ul>
       </li>
       <li>
-        b) Til at dække din bolus skal du tage hurtigvirkende insulin:
+        Til at dække din bolus skal du tage hurtigvirkende insulin:
         <ul>
-          <li>- 1 enhed for ca. hver {{regiment.carbRatio}} gram kulhydrat du spiser</li>
-          <li>
-            - Hvis dit BS er højere end dit BS-mål, skal du lægge oveni:
+          <li><b>1 enhed</b> for ca. hver <b>{{regiment.carbRatio}} gram</b> kulhydrat du spiser</li>
+          <li>Hvis dit BS er højere end dit BS-mål, skal du lægge oveni:
             <ul>
-              <li>- ca. 1 enhed hvis du er {{regiment.insulinSensitivity}} mmol/l højere,</li>
-              <li>- ca. 2 enheder hvis {{2*regiment.insulinSensitivity}} mmol/l  højere,</li>
-              <li>- og så fremdeles</li>
+              <li> ca. <b>1 enhed</b> hvis du er <b>{{regiment.insulinSensitivity}}</b> mmol/l højere,</li>
+              <li> ca. <b>2 enheder</b> hvis <b>{{2*regiment.insulinSensitivity}}</b> mmol/l  højere,</li>
+              <li> og så fremdeles</li>
             </ul>
           </li>
         </ul>

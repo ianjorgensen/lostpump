@@ -10,12 +10,13 @@ $primBG: #ecf0f1;
 $secBG: #cfd9db;
 $primFont: #3c4b4f;
 $secFont: #79939a;
+$darkColoredFont: #1f74ac;
 $button: #99cbed;
 $tableHover: #f0f7fc;
 $tableOdd: #eef1f1;
 $tableBorder: #cdd1d5;
 $inputColor: #ffffff;
-$thBG: #cdd1d5;
+$thBG: #61797f;
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -68,6 +69,7 @@ body {
     p.description {
       font-size: 0.8em;
       color: $secFont;
+      text-align: justify;
     }
 
   }
@@ -91,9 +93,9 @@ table {
 
 th {
   color: #fff;
-  background: $primFont;
+  background: $thBG;
   border-bottom:2px solid $tableBorder;
-  border-right: 1px solid $primFont;
+  border-right: 1px solid $thBG;
   font-size: 0.70em;
   padding: 8px;
   text-align: left;
@@ -188,12 +190,37 @@ td:last-child {
 /*    RESULTS STYLING */
 
 .regiment {
+
+  font-size: 0.85em;
+
+  h3, p, li {
+    line-height: 1.6em;
+  }
+
+  h3 {
+    color: $darkColoredFont;
+  }
+
+  ol > li, ul > li {
+    margin-left: 1.75em;
+  }
+
   ol {
-    list-style: alpha outside none;
+    list-style-type: lower-alpha;
+    list-style-position: outside;
+    list-style-image: none;
+    list-style-color: red;
+
+    padding: 20px 0px;
+
+    li {
+      line-height: 1.6em;
+      text-indent: 0px;
+    }
   }
   ul {
     li {
-      list-style: square outside none;
+      list-style: circle inside none;
     }
   }
 }
@@ -203,13 +230,14 @@ td:last-child {
   font-weight: 200;
   text-transform: uppercase;
   background: $button;
-  padding: 7px 10px;
+  padding: 9px 12px;
   color: white;
   border-radius: 3px;
   display: inline-block;
 
   &:hover{
   background: $bg;
+  transition: background-color 0.2s ease;
   }
 
   i {
