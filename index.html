@@ -39,7 +39,7 @@
     <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
     <h2>Blodsukker Target</h2>
     <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
-    <a href='#' class="button" v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
+    <a href='#' class="button save" v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
   </section>
   <section v-if='!!regiment' class='regiment'>
     <p><i>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes.</i></p>

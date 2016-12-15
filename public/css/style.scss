@@ -318,7 +318,7 @@ td:last-child {
   }
 
   // Hide stuff not needed in print
-  .pump, .notfound, .waiting, .print {
+  .pump, .notfound, .waiting, .print, .save {
   display: none;
   }
 
