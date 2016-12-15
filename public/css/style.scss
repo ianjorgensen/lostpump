@@ -13,11 +13,12 @@ $secFont: #79939a;
 $darkColoredFont: #1f74ac;
 $button: #99cbed;
 $tableHover: #d4e8f6;
-$tableOdd: #eef1f1;
+$tableOdd: white;
 $tableBorder: #cdd1d5;
 $inputColor: #ffffff;
 $thBG: #61797f;
 
+$bigSize: 16px;
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1.15em;
@@ -27,11 +28,12 @@ body {
 
   p {
     color: $primFont;
+    margin: 5px 0;
     line-height: 1.6em;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: $bigSize;
     padding: 10px 0px;
   }
 
@@ -40,24 +42,23 @@ body {
     background: $primBG;
     margin: 10% auto;
     display: block;
-    margin: 4% auto;
-    padding: 4%;
+    margin: 3% auto;
+    padding: 3%;
+    min-height: 100%;
     min-width: 400px;
-    max-width: 800px;
-    border-radius: 4px;
+    max-width: 900px;
+    border-radius: 0px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
     section {
-      padding-bottom: 35px;
-
-
+      padding-bottom: 15px;
     }
 
     h1 {
       font-size: 1.25em;
       line-height: 1.2em;
       font-weight: 400;
-      padding-bottom: 25px;
+      padding-bottom: 10px;
 
       b {
         font-size: 0.80em;
@@ -75,6 +76,18 @@ body {
   }
 }
 
+/* Tablet Sections */
+.pumpSettings li:first-child {
+  padding-left: 0;
+}
+.pumpSettings li {
+  float:left;
+  padding: 0 5px;
+}
+
+.clear {
+  clear: both;
+}
 /*     Table Styles */
 
 table {
@@ -94,7 +107,6 @@ table {
 th {
   color: #fff;
   background: $thBG;
-  border-bottom:2px solid $tableBorder;
   border-right: 1px solid $thBG;
   font-size: 0.70em;
   padding: 8px;
@@ -159,7 +171,8 @@ td {
   background: $inputColor;
   text-align: left;
   vertical-align: middle;
-  border-right: 1px solid $tableBorder;
+  width: 110px;
+  border: 1px solid $tableBorder;
 }
 
 td:hover {
@@ -174,6 +187,10 @@ input {
   border: 0px;
   padding: 5px 0px 5px 0px;
   text-indent: 8px;
+}
+
+.pump {
+  font-size: $bigSize;
 }
 
 .pump input {
@@ -215,7 +232,7 @@ td:last-child {
     list-style-image: none;
     list-style-color: red;
 
-    padding: 20px 0px;
+    padding: 10px 0px;
 
     li {
       line-height: 1.6em;
@@ -260,7 +277,7 @@ td:last-child {
 
 
   h2 {
-    font-size: 20px;
+    font-size: $bigSize;
 //    padding: 20px 30px;
     border-radius: 4px;
     display: inline-block;
@@ -311,31 +328,42 @@ td:last-child {
 }
 
 @media print {
-
+  input {
+    padding: 0 !important;
+  }
+  body {
+    background: white !important;
+  }
+  .regiment {
+    font-size: 0.75em !important;
+  }
   #app {
-    border-radius: 0px !important;
-    box-shadow: 0px 0px 0px red !important;
+    background: white !important;
+    margin: 0 auto;
+    display: block;
+    padding: 0 !important;
+    border-radius: none !important;
+    box-shadow: none !important;
   }
 
+  section {
+    padding-bottom: 0 !important;
+  }
+  td {
+    width: 80px !important;
+  }
   // Hide stuff not needed in print
-  .pump, .notfound, .waiting, .print, .save {
-  display: none;
+  .pumpCreate, .notfound, .waiting, .print, .save, .intro {
+    display: none;
   }
 
   table {
-
+    margin-bottom: 10px;
     box-shadow: none;
-
     border: 0px;
 
     th {
-
       border-right: 0px;
-
-    }
-
-    tr {
-
     }
 
     tr:last-child {

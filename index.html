@@ -22,8 +22,8 @@
   <section class='pump'>
     <label for="pumpid">Pumpe ID:</label>
     <input v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
-    eller
-    <a href='#' class="button" v-on:click='createPump'>opret ny pumpe</a>
+    <span class='pumpCreate'>eller</span>
+    <a href='#' class="pumpCreate button" v-on:click='createPump'>opret ny pumpe</a>
   </section>
   <section v-if='pumpFound === false' class='notfound'>
     <h2>Ingen pumpe fundet. Opret en ny pumpe.</h2>
@@ -33,13 +33,23 @@
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
     <h2>Basal-rate</h2>
     <settings-module v-bind:propdata='settings.basal'></settings-module>
-    <h2>Kulhydrat-rate</h2>
-    <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
-    <h2>Insulin Sensisivitet</h2>
-    <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
-    <h2>Blodsukker Target</h2>
-    <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
-    <a href='#' class="button save" v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
+    <ol>
+      <li>
+        <h2>Kulhydrat-rate</h2>
+        <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
+      </li>
+      <li>
+        <h2>Insulin Sensisivitet</h2>
+        <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
+      </li>
+      <li>
+        <h2>Blodsukker Target</h2>
+        <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
+        </ol>
+      </li>
+    </ol>
+    <div class='clear'></div>
+    <a href='#' class="button save " v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
   </section>
   <section v-if='!!regiment' class='regiment'>
     <p><i>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes.</i></p>
@@ -92,9 +102,9 @@
         </ul>
       </li>
     </ol>
+    <a href='#' class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
   </section>
-  <!-- HIDE PRINT-BUTTON IF THERE ARE NO RESULTS -->
-  <a href='#' class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+
   </div>
 </body>
 </html>
