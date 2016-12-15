@@ -12,7 +12,7 @@ $primFont: #3c4b4f;
 $secFont: #79939a;
 $darkColoredFont: #1f74ac;
 $button: #99cbed;
-$tableHover: #f0f7fc;
+$tableHover: #d4e8f6;
 $tableOdd: #eef1f1;
 $tableBorder: #cdd1d5;
 $inputColor: #ffffff;
@@ -135,6 +135,10 @@ tr:last-child {
 
 tr:nth-child(odd) td {
   background:$tableOdd;
+
+  &:hover {
+    background: $tableHover;
+  }
 }
 
 /*
