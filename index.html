@@ -21,12 +21,12 @@
   </section>
   <section class='pump'>
     <label for="pumpid">Pump ID</label>
-    <input v-on:change='loadSample' type="text" id="pumpid">
+    <input v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
     or
     <a href='#' class="button" v-on:click='createPump'>create a new pump</a>
   </section>
   <section v-if='pumpFound === false' class='notfound'>
-    <h2>No pump found</h2>
+    <h2>No pump found, create a new pump</h2>
   </section>
   <section v-if='waiting' class='waiting'>Waiting for data from the server</section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
@@ -38,7 +38,7 @@
     <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
     <h2>BG Target</h2>
     <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
-    <a href='#' class="button" v-on:click='calculateRegiment'>Calculate MDI Doses</a>
+    <a href='#' class="button" v-on:click='calculateRegiment'>Save Settings and Calculate MDI Doses</a>
   </section>
   <section v-if='!!regiment' class='regiment'>
     <p>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes:</p>

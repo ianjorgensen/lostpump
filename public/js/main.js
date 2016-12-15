@@ -64,6 +64,7 @@ $(function(){
       el: '#app',
       data: {
         waiting: false,
+        pumpid: null,
         pumpFound: null,
         regiment: null,
         settings: JSON.parse(JSON.stringify(dataSettings))
@@ -77,14 +78,20 @@ $(function(){
       },
       methods: {
         updateSettings: function(settings) {
+          this.regiment = null;
           this.settings = JSON.parse(JSON.stringify(settings))
         },
         calculateRegiment: function() {
           var result = calculate(this.settings);
-          
+
           if(result.rapidDoseBreakDown) {
             this.regiment = result;
           }
+
+          //save settings to server
+          $.post("/save", {pumpid: this.pumpid, settings: this.settings}, function(data) {
+            console.log('post',data);
+          });
         },
         createPump: function() {
           this.pumpFound = true;
@@ -92,13 +99,20 @@ $(function(){
         },
         loadSample: function() {
           this.waiting = true;
-          setTimeout(function(_this) {
-            return function() {
-              _this.waiting = false;
+
+          var _this = this;
+          $.getJSON('/pump/' + this.pumpid, function( data ) {
+            _this.waiting = false;
+
+            console.log('pump data',data);
+            if (data.notfound) {
+              _this.pumpFound = false;
+              _this.updateSettings(emptyPumpSettings.settings);
+            } else {
               _this.pumpFound = true;
-              _this.updateSettings(samplePumpSettings.settings);
-            };
-          }(this), 10);
+              _this.updateSettings(data.settings);
+            }
+          });
         },
         print: function() {
           window.print()
