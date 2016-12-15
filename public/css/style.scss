@@ -29,6 +29,12 @@ body {
     line-height: 1.6em;
   }
 
+  h2 {
+    font-size: 20px;
+    padding: 10px 0px;
+  }
+
+
   div#app {
     background: $primBG;
     margin: 10% auto;
@@ -42,6 +48,8 @@ body {
 
     section {
       padding-bottom: 35px;
+
+
     }
 
     h1 {
@@ -63,10 +71,6 @@ body {
     }
 
   }
-}
-
-li {
-  padding: 5px;
 }
 
 /*     Table Styles */
@@ -162,12 +166,14 @@ input {
   height: 25px;
   background: transparent;
   border: 0px;
-  padding: 8px;
+  padding: 5px 0px 5px 0px;
+  text-indent: 8px;
 }
 
 .pump input {
   width: inherit;
   background: $inputColor;
+  border-radius:3px;
 }
 
 textarea:focus, input:focus{
@@ -179,9 +185,17 @@ td:last-child {
   border-right: 0px;
 }
 
-h2 {
-  padding-top: 20px;
-  padding-bottom: 10px;
+/*    RESULTS STYLING */
+
+.regiment {
+  ol {
+    list-style: alpha outside none;
+  }
+  ul {
+    li {
+      list-style: square outside none;
+    }
+  }
 }
 
 .button {
@@ -191,7 +205,7 @@ h2 {
   background: $button;
   padding: 7px 10px;
   color: white;
-  border-radius: 4px;
+  border-radius: 3px;
   display: inline-block;
 
   &:hover{
@@ -230,7 +244,7 @@ h2 {
   color:  rgba(39, 174, 96,1.0);
 }
 
-/*     LOAD ANIMATION */
+     LOAD ANIMATION
 
 .spinner {
   width: 18px;
