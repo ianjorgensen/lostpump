@@ -28,7 +28,8 @@
   <section v-if='pumpFound === false' class='notfound'>
     <h2>No pump found, create a new pump</h2>
   </section>
-  <section v-if='waiting' class='waiting'>Waiting for data from the server</section>
+  <section v-if='waiting' class='waiting'><h2>Waiting for data from the server<div class="spinner"></div>
+  </h2></section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
     <h2>Basal rate</h2>
     <settings-module v-bind:propdata='settings.basal'></settings-module>

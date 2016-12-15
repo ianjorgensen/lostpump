@@ -69,15 +69,7 @@ li {
   padding: 5px;
 }
 
-section.waiting {
-  background: $secBG;
-  padding: 0px;
-  color: green;
-  border-radius: 4px;
-  display: inline-block;
-}
-
-/*** Table Styles **/
+/*     Table Styles */
 
 table {
   background: white;
@@ -214,6 +206,62 @@ h2 {
     padding-left: 0.25em;
   }
 
+}
+
+/*    SYSTEM STATUS FEEDBACK SECTIONS */
+
+.waiting, .notfound {
+
+
+  h2 {
+    font-size: 20px;
+//    padding: 20px 30px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+}
+
+.notfound h2 {
+//  background: rgba(211, 84, 0, 0.2);
+  color: rgba(211, 84, 0,1.0);
+}
+
+.waiting h2 {
+  color:  rgba(39, 174, 96,1.0);
+}
+
+/*     LOAD ANIMATION */
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  background-color: rgba(39, 174, 96,1.0);
+  display: inline-block;
+
+  margin: 0px 0px -3px 20px;
+
+
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  } 100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
 }
 
 @media print {
