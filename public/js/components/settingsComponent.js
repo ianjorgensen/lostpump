@@ -15,7 +15,7 @@ Vue.component('settings-module',{
     },
     pickupValues: function() {
       var rowLength = this.propdata.headers.length;
-      var inputs = $(this.$el).find('input').toArray().map(function(el) { return $(el).val() });
+      var inputs = $(this.$el).find('input').toArray().map(function(el) { return $(el).val().replace(',','.') });
       var rows = [];
 
       while(inputs.length) {

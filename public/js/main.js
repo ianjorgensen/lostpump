@@ -58,68 +58,29 @@ var emptyPumpSettings = {
 var globalPumpSettings;
 var regiment;
 
-$(function(){
-  var createSettingsSection = function(dataSettings) {
-    settingsSection = new Vue({
-      el: '#app',
-      data: {
-        waiting: false,
-        pumpid: null,
-        pumpFound: null,
-        regiment: null,
-        settings: JSON.parse(JSON.stringify(dataSettings))
-      },
-      updated: function() {
+var readOnly = function() {
+  $( "input" ).prop( "disabled", true );
+  $('.pumpCreate, .save, .intro').hide();
+}
 
-        globalPumpSettings = JSON.parse(JSON.stringify(this.$data));
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
 
-        console.log('update vue');
-        //console.log('updated data', globalPumpSettings, result);
-      },
-      methods: {
-        updateSettings: function(settings) {
-          this.regiment = null;
-          this.settings = JSON.parse(JSON.stringify(settings))
-        },
-        calculateRegiment: function() {
-          var result = calculate(this.settings);
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
 
-          if(result.rapidDoseBreakDown) {
-            this.regiment = result;
-          }
-
-          //save settings to server
-          $.post("/save", {pumpid: this.pumpid, settings: this.settings}, function(data) {
-            console.log('post',data);
-          });
-        },
-        createPump: function() {
-          this.pumpFound = true;
-          this.updateSettings(emptyPumpSettings.settings);
-        },
-        loadSample: function() {
-          this.waiting = true;
-
-          var _this = this;
-          $.getJSON('/pump/' + this.pumpid, function( data ) {
-            _this.waiting = false;
-
-            console.log('pump data',data);
-            if (data.notfound) {
-              _this.pumpFound = false;
-              _this.updateSettings(emptyPumpSettings.settings);
-            } else {
-              _this.pumpFound = true;
-              _this.updateSettings(data.settings);
-            }
-          });
-        },
-        print: function() {
-          window.print()
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
         }
-      }
-    })
-  }
+    }
+};
 
-  createSettingsSection(emptyPumpSettings.settings);
+$(function(){
+  if(getUrlParameter('pumpid')) {
+    readOnly();
+  }
+  createSettingsSection(emptyPumpSettings.settings, getUrlParameter('pumpid'));
 });

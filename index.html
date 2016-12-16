@@ -7,6 +7,7 @@
   <script src="https://use.fontawesome.com/e81f5f3c0d.js"></script>
 
   <script src='/js/components/settingsComponent.js'></script>
+  <script src='/js/components/pumpSettingsSection.js'></script>
   <script src='/js/calc.js'></script>
   <script src='/js/main.js'></script>
 
@@ -21,7 +22,7 @@
   </section>
   <section class='pump'>
     <label for="pumpid">Pumpe ID:</label>
-    <input v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
+    <input class='singleInput' v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
     <span class='pumpCreate'>eller</span>
     <a href='#' class="pumpCreate button" v-on:click='createPump'>opret ny pumpe</a>
   </section>
@@ -49,6 +50,10 @@
       </li>
     </ol>
     <div class='clear'></div>
+    <div class='insulinActionTime'>
+      <label for="insulinActionTime">Aktiv insulin tid:</label><input class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
+    </div>
+
     <a href='#' class="button save " v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
   </section>
   <section v-if='!waiting && !!regiment' class='regiment'>
@@ -103,6 +108,7 @@
       </li>
     </ol>
     <a href='#' class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+    <a class='button email print' target='_black' :href="'mailto:?subject=Pump Settings&body=Your pump settings https://hidden-bastion-66980.herokuapp.com/?pumpid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
   </section>
 
   </div>

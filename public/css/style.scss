@@ -76,6 +76,23 @@ body {
   }
 }
 
+.save {
+  margin-top: 15px;
+}
+
+label, .pump {
+  font-size: $bigSize;
+}
+
+.insulinActionTime {
+  input {
+    width: 50px;
+    background: white;
+    border-radius: 3px;
+    margin-left: 5px;
+  }
+}
+
 /* Tablet Sections */
 .pumpSettings li:first-child {
   padding-left: 0;
@@ -191,10 +208,6 @@ input {
   border: 0px;
   padding: 1px 0px 1px 0px;
   text-indent: 8px;
-}
-
-.pump {
-  font-size: $bigSize;
 }
 
 .pump input {
@@ -334,16 +347,27 @@ td:last-child {
 @media print {
   input {
     padding: 0 !important;
+    height: 20px;
   }
+
+  .singleInput {
+    height: 100% !important;
+    margin: 0px !important;
+  }
+
+  h2, label, .pump {
+    font-size: 0.8em !important;
+  }
+
   body {
     background: white !important;
   }
   .regiment {
-    font-size: 0.75em !important;
+    font-size: 0.7em !important;
   }
   #app {
     background: white !important;
-    margin: 0 auto;
+    margin: 0 auto !important;
     display: block;
     padding: 0 !important;
     border-radius: none !important;
@@ -352,6 +376,7 @@ td:last-child {
 
   section {
     padding-bottom: 0 !important;
+    font-size: 1em;
   }
   td {
     width: 80px !important;
@@ -367,9 +392,12 @@ td:last-child {
     border: 0px;
 
     th {
-      border-right: 0px;
+      border-radius: 0px !important;
     }
 
+    td:last-child {
+      border-right: 1px solid #cdd1d5;
+    }
     tr:last-child {
       display: none;
     }
