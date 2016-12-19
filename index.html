@@ -20,9 +20,20 @@
     <h1>Er din insulinpumpe kaput?</h1>
     <p class="description">Brug dette værktøj til at generere injektions-instrukser, når din insulinpumpe, af den ene eller anden årsag, ikke er tilgængelig. Start med at søge efter din pumpe ID. Hvis den ikke findes i systemet, så opret den med dens ID og indstillinger, tryk GEM OG KALKULÉR, og systemet vil udregne dine injektions-instrukser.
   </section>
+  <section class="airportNotice"><h2 class="printHeadline">Insulin Pump Certficate</h2>
+   <p>It is hereby certified that this patient has Type 1 diabetes and is treated with an insulin pump.</p>
+   <p>The person needs to carry as well material for the insulin pump treatment as insulin injection pens and blood glucose meter in the hand luggage.</p>
+   <p>The insulin pump may alarm in airport detectors etc.</p>
+   <p>It is vital to this person that the insulin pump is not removed from the body more than 30-60 minutes.</p>
+   <p>In case of problems regarding this patient and diabetes please contact:</p></br>
+   <p><i>Dep. of Endocrinology, Hvidovre Hospital, Denmark:</br>
+   tel: +45 36 32 33 88</i></p>
+   </br>
+  </section>
   <section class='pump'>
+    <h2 class="printHeadline">Pumpe indstillinger</h2>
     <label for="pumpid">Pumpe ID:</label>
-    <input class='singleInput' v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
+    <input class='singleInput' :disabled='disableInput' v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
     <span class='pumpCreate'>eller</span>
     <a href='#' class="pumpCreate button" v-on:click='createPump'>opret ny pumpe</a>
   </section>
@@ -33,30 +44,31 @@
   </h2></section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
     <h2>Basal-rate</h2>
-    <settings-module v-bind:propdata='settings.basal'></settings-module>
+    <settings-module :disableInput='disableInput':propdata='settings.basal'></settings-module>
     <ol>
       <li>
         <h2>Kulhydrat-rate</h2>
-        <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
+        <settings-module :propdata='settings.carbRatio'></settings-module>
       </li>
       <li>
         <h2>Insulin Sensisivitet</h2>
-        <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
+        <settings-module :propdata='settings.insulinSensitivity'></settings-module>
       </li>
       <li>
         <h2>Blodsukker Target</h2>
-        <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
+        <settings-module :propdata='settings.bgTarget'></settings-module>
         </ol>
       </li>
     </ol>
     <div class='clear'></div>
     <div class='insulinActionTime'>
-      <label for="insulinActionTime">Aktiv insulin tid:</label><input class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
+      <label for="insulinActionTime">Aktiv insulin tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
     </div>
 
     <a href='#' class="button save " v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
   </section>
   <section v-if='!waiting && !!regiment' class='regiment'>
+    <h2 class="printHeadline">Injektions-instrukser</h2>
     <p><i>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes.</i></p>
     <p>Du har to valgmuligheder:</p>
     <h3>Du har <b>KUN HURTIGVIRKENDE INSULIN</b> (novorapid, humalog, apidra) i penne/engangssprøjter</h3>
@@ -101,7 +113,7 @@
             <ul>
               <li> ca. <b>1 enhed</b> hvis du er <b>{{regiment.insulinSensitivity}}</b> mmol/l højere,</li>
               <li> ca. <b>2 enheder</b> hvis <b>{{2*regiment.insulinSensitivity}}</b> mmol/l  højere,</li>
-              <li> og så fremdeles</li>
+              <li> og så fremdeles...</li>
             </ul>
           </li>
         </ul>
