@@ -58,6 +58,11 @@ var emptyPumpSettings = {
 var globalPumpSettings;
 var regiment;
 
+var readOnly = function() {
+  $( "input" ).prop( "disabled", true );
+  $('.pumpCreate, .save, .intro').hide();
+}
+
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -75,8 +80,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 $(function(){
   if(getUrlParameter('pumpid')) {
-    disableInputGlobal = true;
-    $('.pumpCreate, .save, .intro').hide();
+    readOnly();
   }
   createSettingsSection(emptyPumpSettings.settings, getUrlParameter('pumpid'));
 });

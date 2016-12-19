@@ -4,14 +4,16 @@ var createSettingsSection = function(dataSettings, pumpid) {
     data: {
       waiting: false,
       pumpid: pumpid,
-      disableInput: false,
       pumpFound: null,
       regiment: null,
       settings: JSON.parse(JSON.stringify(dataSettings))
     },
     updated: function() {
+
       globalPumpSettings = JSON.parse(JSON.stringify(this.$data));
+
       console.log('update vue');
+      //console.log('updated data', globalPumpSettings, result);
     },
     mounted: function() {
       if (this.pumpid) {
@@ -59,11 +61,8 @@ var createSettingsSection = function(dataSettings, pumpid) {
             _this.updateSettings(data.settings);
 
             if (calculate === true) {
-              _this.disableInput = true;
-              setTimeout(function() {
-                $( "input" ).prop( "disabled", true );
-                _this.calculateRegiment(false);
-              },1000);
+              console.log('try to calculate');
+              setTimeout(function() {_this.calculateRegiment(false);},100);
             }
           }
         });
