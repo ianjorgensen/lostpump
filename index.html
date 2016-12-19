@@ -34,7 +34,7 @@ tel: +45 36 32 33 88</i></p>
   <section class='pump'>
     <h2 class="printHeadline">Pumpe indstillinger</h2>
     <label for="pumpid">Pumpe ID:</label>
-    <input class='singleInput' v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
+    <input class='singleInput' :disabled='disableInput' v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
     <span class='pumpCreate'>eller</span>
     <a href='#' class="pumpCreate button" v-on:click='createPump'>opret ny pumpe</a>
   </section>
@@ -45,25 +45,25 @@ tel: +45 36 32 33 88</i></p>
   </h2></section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
     <h2>Basal-rate</h2>
-    <settings-module v-bind:propdata='settings.basal'></settings-module>
+    <settings-module :disableInput='disableInput' :propdata='settings.basal'></settings-module>
     <ol>
       <li>
         <h2>Kulhydrat-rate</h2>
-        <settings-module v-bind:propdata='settings.carbRatio'></settings-module>
+        <settings-module :propdata='settings.carbRatio'></settings-module>
       </li>
       <li>
         <h2>Insulin Sensisivitet</h2>
-        <settings-module v-bind:propdata='settings.insulinSensitivity'></settings-module>
+        <settings-module :propdata='settings.insulinSensitivity'></settings-module>
       </li>
       <li>
         <h2>Blodsukker Target</h2>
-        <settings-module v-bind:propdata='settings.bgTarget'></settings-module>
+        <settings-module :propdata='settings.bgTarget'></settings-module>
         </ol>
       </li>
     </ol>
     <div class='clear'></div>
     <div class='insulinActionTime'>
-      <label for="insulinActionTime">Aktiv insulin tid:</label><input class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
+      <label for="insulinActionTime">Aktiv insulin tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
     </div>
 
     <a href='#' class="button save " v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>

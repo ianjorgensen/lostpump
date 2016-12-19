@@ -5,8 +5,13 @@ Vue.component('settings-module',{
     this.clearEmptyRows();
   },
   props: ['propdata'],
+  updated: function() {
+    if(disableInputGlobal) {
+      $( "input" ).prop( "disabled", true );
+    }
+  },
   beforeUpdate: function() {
-    console.log('beforeUpdate', this.propdata)
+    console.log('beforeUpdate', this.propdata);
     this.appendPolice()
   },
   methods: {
