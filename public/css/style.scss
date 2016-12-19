@@ -19,8 +19,6 @@ $inputColor: #ffffff;
 $thBG: #61797f;
 
 $bigSize: 16px;
-$printTextSize: 0.4em;
-
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1.15em;
@@ -227,16 +225,6 @@ td:last-child {
   border-right: 0px;
 }
 
-/* Stuff hidden in screen style */
-
-.airportNotice {
-  display: none;
-}
-
-.printHeadline {
-  display: none;
-}
-
 /*    RESULTS STYLING */
 
 .regiment {
@@ -368,13 +356,15 @@ td:last-child {
   }
 
   h2, label, .pump {
-    font-size: $printTextSize !important;
+    font-size: 0.8em !important;
   }
 
   body {
     background: white !important;
   }
-
+  .regiment {
+    font-size: 0.7em !important;
+  }
   #app {
     background: white !important;
     margin: 0 auto !important;
@@ -386,8 +376,8 @@ td:last-child {
 
   section {
     padding-bottom: 0 !important;
+    font-size: 1em;
   }
-
   td {
     width: 80px !important;
   }
@@ -396,65 +386,20 @@ td:last-child {
     display: none;
   }
 
-  // Show stuff needed in print
-  .airportNotice {
-    display: inherit !important;
-    font-size: $printTextSize;
-    line-height: 1.0em;
-  }
-
-  .printHeadline {
-    display: inherit !important;
-    text-transform: uppercase;
-    text-decoration: underline;
-  //  font-size: $bigSize !important;
-    font-weight: bold !important;
-  }
-
-  // Convert colors to grey-scale
-
-  body, p, h2, h3, th, tr, td, li  {
-    color: black !important;
-  }
-
-  td:last-child {
-    border-right: 1px solid grey;
-  }
-
-  td {
-    border: 1px solid grey !important;
-  }
-
-  // Resize text
-
-  .regiment {
-    font-size: $printTextSize !important;
-  }
-
-  .insulinActionTime {
-    font-size: $printTextSize !important;
-    input {
-    }
-  }
-
   table {
     margin-bottom: 10px;
     box-shadow: none;
     border: 0px;
-    font-size: $printTextSize !important;
 
     th {
       border-radius: 0px !important;
-      background: white;
-      border: none !important;
     }
 
-    tr {
-      border: 0px;
-
-      &:last-child {
-        display: none;
-      }
+    td:last-child {
+      border-right: 1px solid #cdd1d5;
+    }
+    tr:last-child {
+      display: none;
     }
   }
 }
