@@ -1,11 +1,15 @@
+Copy directly to clipboard.
+
 Sorting Error
 Fix Link
 add total basal to text version
-Copy directly to clipboard
 Add confirm visual
 Remove footer from print version
 style text in print
 make sure if name is empty that its empty in the print
+smart time detection
+
+Consider a small license
 
 
 //Clipboard generate text friendly version button.
