@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lost Pump</title>
+  <title>Gem og se Pumpe Instilinger</title>
   <script src='/js/lib/vue-2.1.4.js'></script>
   <script src='/js/lib/jquery-3.1.1.min.js'></script>
+  <script src='/js/lib/text-table.js'></script>
   <script src="https://use.fontawesome.com/e81f5f3c0d.js"></script>
 
   <script src='/js/components/settingsComponent.js'></script>
@@ -17,10 +18,11 @@
 <body>
   <div id='app'>
   <section class='intro'>
-    <h1>Er din insulinpumpe kaput?</h1>
+    <h1>Pumpe Instilinger</h1>
     <p class="description">Brug dette værktøj til at generere injektions-instrukser, når din insulinpumpe, af den ene eller anden årsag, ikke er tilgængelig. Start med at søge efter din pumpe ID. Hvis den ikke findes i systemet, så opret den med dens ID og indstillinger, tryk GEM OG KALKULÉR, og systemet vil udregne dine injektions-instrukser.
   </section>
   <section class="airportNotice"><h2 class="printHeadline">Insulin Pump Certficate</h2>
+   <p id='patientName'></p>
    <p>It is hereby certified that this patient has Type 1 diabetes and is treated with an insulin pump.</p>
    <p>The person needs to carry as well material for the insulin pump treatment as insulin injection pens and blood glucose meter in the hand luggage.</p>
    <p>The insulin pump may alarm in airport detectors etc.</p>
@@ -33,12 +35,13 @@
   <section class='pump'>
     <h2 class="printHeadline">Pumpe indstillinger</h2>
     <label for="pumpid">Pumpe ID:</label>
-    <input class='singleInput' :disabled='disableInput' v-model='pumpid' v-on:change='loadSample' type="text" id="pumpid">
-    <span class='pumpCreate'>eller</span>
-    <a href='#' class="pumpCreate button" v-on:click='createPump'>opret ny pumpe</a>
+    <input class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid">
+    <span class='pumpCreate'></span>
+    <a href='#' class="pumpCreate button" v-on:click='loadSample'>Søg</a>
   </section>
   <section v-if='pumpFound === false' class='notfound'>
-    <h2>Ingen pumpe fundet. Opret en ny pumpe.</h2>
+    <h2>Ingen pumpe fundet.</h2>
+    <a href='#' class="pumpCreate button" v-on:click='createPump'>opret ny pumpe</a>
   </section>
   <section v-if='waiting' class='waiting'><h2>Søger efter pumpe-data<div class="spinner"></div>
   </h2></section>
@@ -64,8 +67,13 @@
     <div class='insulinActionTime'>
       <label for="insulinActionTime">Aktiv insulin tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
     </div>
+    <div class='pumpModel'>
+      <label for="pumpModel">Pumpe Model:</label><input :disabled='disableInput' class='singleInput' v-model='settings.pumpModel' type="text" id="pumpModel">
+    </div>
 
-    <a href='#' class="button save " v-on:click='calculateRegiment'>Gem og kalkulér <i class="fa fa-check" aria-hidden="true"></i></a>
+    <a href='#' class="button save" v-on:click='save'>Gem<i class="fa" aria-hidden="true"></i></a>
+    <a href='#' class="button save" v-on:click='calculateRegiment'>Generate Report<i class="fa" aria-hidden="true"></i></a>
+    <a href='#' class="button save" v-on:click='clipboard'>Copy text friendly version<i class="fa fa-clipboard" aria-hidden="true"></i></a>
   </section>
   <section v-if='!waiting && !!regiment' class='regiment'>
     <h2 class="printHeadline">Injektions-instrukser</h2>
@@ -120,7 +128,7 @@
       </li>
     </ol>
     <a href='#' class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
-    <a class='button email print' target='_black' :href="'mailto:?subject=Pump Settings&body=Your pump settings https://hidden-bastion-66980.herokuapp.com/?pumpid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+    <a class='button email print' target='_black' :href="'mailto:?subject=Pump Settings&body=Your pump settings https://hidden-bastion-66980.herokuapp.com/?pumptravelid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
   </section>
 
   </div>

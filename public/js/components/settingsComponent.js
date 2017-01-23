@@ -1,27 +1,26 @@
 Vue.component('settings-module',{
-  template: "<table><tr><th v-for='header in propdata.headers'>{{ header }}</th></tr><tr v-for='row in propdata.rows'><td v-for='cell in row'><input v-bind:value='cell' v-on:change='onChange'></td></tr></table>",
+  template: "<div class='table'><table><tr><th v-for='header in propdata.headers'>{{ header }}</th></tr><tr v-for='row in propdata.rows'><td v-for='cell in row'><input v-bind:value='cell' v-on:change='onChange'></td></tr></table><div class='sum' v-if='propdata.sum'>{{ propdata.sum }}</div></div>",
   created: function() {
-    this.appendRow();
-    this.clearEmptyRows();
+    this.appendRow()
+    this.clearEmptyRows()
   },
   props: ['propdata'],
   updated: function() {
-    if(disableInputGlobal) {
-      $( "input" ).prop( "disabled", true );
+    if (this.propdata.settingType == 'basal') {
+      this.sumInsulin();
     }
   },
   beforeUpdate: function() {
-    console.log('beforeUpdate', this.propdata);
     this.appendPolice()
   },
   methods: {
     appendRow: function() {
-      this.propdata.rows.push(new Array(this.propdata.headers.length));
+      this.propdata.rows.push(new Array(this.propdata.headers.length))
     },
     pickupValues: function() {
-      var rowLength = this.propdata.headers.length;
-      var inputs = $(this.$el).find('input').toArray().map(function(el) { return $(el).val().replace(',','.') });
-      var rows = [];
+      var rowLength = this.propdata.headers.length
+      var inputs = $(this.$el).find('input').toArray().map(function(el) { return $(el).val().replace(',','.') })
+      var rows = []
 
       while(inputs.length) {
         rows.push(inputs.splice(0, rowLength));
@@ -33,6 +32,10 @@ Vue.component('settings-module',{
     onChange: function() {
       this.pickupValues();
       this.clearEmptyRows();
+      this.sortByTime();
+      if (this.propdata.settingType == 'basal') {
+        this.sumInsulin();
+      }
     },
     clearEmptyRows: function() {
       for(var i = 0; i < this.propdata.rows.length - 1; i++) {
@@ -42,6 +45,30 @@ Vue.component('settings-module',{
         }
       }
     },
+    sumInsulin: function() {
+      var sum = calculateTotalBasal(JSON.parse(JSON.stringify(this.propdata)))
+      console.log('sum',sum)
+
+      if(sum && !isNaN(sum)) {
+        this.propdata.sum = sum + 'ie/dag'
+      }
+    },
+    sortByTime: function() {
+      this.propdata.rows.sort(function(a,b) {
+        var aVal = Number.MAX_SAFE_INTEGER;
+        var bVal = Number.MAX_SAFE_INTEGER;
+
+        if (a && a[0] && a[0].indexOf(':') != -1) {
+          aVal = parseInt(a[0].split(':')[0])*60 + parseInt(a[0].split(':')[1])
+        }
+
+        if (b && b[0] && b[0].indexOf(':') != -1) {
+          bVal = parseInt(b[0].split(':')[0])*60 + parseInt(b[0].split(':')[1])
+        }
+
+        return aVal - bVal;
+      });
+    },
     appendPolice: function() {
       var last = [""];
       if (this.propdata.rows.length) {
@@ -50,7 +77,7 @@ Vue.component('settings-module',{
       var lastReduce = last.reduce(function(x,y) {if(!x)x=''; if(!y)y=''; return x + y;});
 
       if (lastReduce != "") {
-        this.appendRow();
+        this.appendRow()
       }
     }
   }

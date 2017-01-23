@@ -1,0 +1,81 @@
+Clipboard generate text friendly version button.
+
+
+Sum basal rates
+
+//Airport printing in one page add name and id info.
+//Change pump id and keep settings
+//Add auto time sorting and type checking on the time field.
+//Re brand to Pump settings saving tool.
+//Generate pump report button.
+//Add pump model to form.
+// Add 00:00 when creating a new pump.
+
+
+March 17th.
+End of the month.
+Febrarury.
+
+Region:
+March 17: Hvidovre. 2-3 Doctors. 2-3 Nurses.
+March 17: Hillerod. 2-3 Doctors. 2-3 Nurses.
+Already have it: Herlev (former Gentofte). 3-4 Doctors. 3-5 Nurses.
+May: Steno. 3-5 Doctors. 5-8 Nurses.
+
+Danish pump Courses.
+
+Add Languages so patients in International Pump courses.
+
+
+--------------------------------------
+Future tools for the toolbox
+--------------------------------------
+
+Basal check.
+-
+Bolus check.
+-
+
+Dexcom insigths.
+
+Go from MDI to pump.
+Go from pump to MDI.
+
+Decision support to transition to pumps.
+
+MDI. Carb counting.
+
+
+
+Eduction:
+
+Clear tools.
+To learn specific lessons.
+All the rules and tests.
+
+________________________________________________________________
+
+|
+|
+
+
+---
+
+(
+? Store pump history. (maybe not needed because doctor will save changed settings in meeting notes).
+? Move save to be more explicit.
+)
+
+
+PUMPID: 1234
+
+Settings Online: https://hidden-bastion-66980.herokuapp.com/?pumpid=1#
+
+ _______________
+|Basal-rate     |
+|_______________|
+|kl.	  |  ie/t |
+|_______|_______|
+|00:00  |  1    |
+|00:03  |  2    |
+|_______|_______|

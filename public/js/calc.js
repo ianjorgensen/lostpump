@@ -89,13 +89,23 @@ var hourDoseBreakDown = function(minuteDoses) {
     for(var m = 0; m < (60); m++) {
       sum += minuteDoses[h*60 + m]
     }
-    hours.push(sum);
+    hours.push(sum)
   }
-  return hours;
+  return hours
 }
 
-function roundHalf(num) {
-    return Math.round(num*2)/2;
+var roundHalf = function(num) {
+  return Math.round(num*2)/2
+}
+
+var calculateTotalBasal = function(basal) {
+  basal.rows.pop()
+
+  var doses = timing(basal.rows)
+  var dosesPerMinute = minuteDoseBreakdown(doses)
+  var basalTotal = dosesPerMinute.reduce(function(a, b) {return a + b})
+
+  return basalTotal.toFixed(2)
 }
 
 var calculate = function(pumpSettings) {
@@ -104,7 +114,6 @@ var calculate = function(pumpSettings) {
   var doses = timing(pumpSettings.basal.rows)
   var dosesPerMinute = minuteDoseBreakdown(doses)
   var dosesPerHour = hourDoseBreakDown(dosesPerMinute)
-
   /*
   Sanity
 

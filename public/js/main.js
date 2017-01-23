@@ -24,20 +24,24 @@ var samplePumpSettings = {
 var emptyPumpSettings = {
   settings: {
     basal: {
+      settingType: 'basal',
       headers: ['kl.','ie/t'],
-      rows: [['','']]
+      rows: [['00:00','']]
     },
     carbRatio: {
+      settingType: 'carbRatio',
       headers: ['kl.','gram/IE',],
-      rows: [['','']]
+      rows: [['00:00','']]
     },
     insulinSensitivity: {
+      settingType: 'insulinSensitivity',
       headers: ['kl.','mmol/l/IE'],
-      rows: [['','']]
+      rows: [['00:00','']]
     },
     bgTarget: {
+      settingType: 'bgTarget',
       headers: ['kl.','mmol/l (min.)','mmol/l (maks.)'],
-      rows: [['','','']]
+      rows: [['00:00','','']]
     }
   }
 }
@@ -74,9 +78,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 $(function(){
-  if(getUrlParameter('pumpid')) {
+  if(getUrlParameter('pumptravelid')) {
     disableInputGlobal = true;
     $('.pumpCreate, .save, .intro').hide();
   }
-  createSettingsSection(emptyPumpSettings.settings, getUrlParameter('pumpid'));
+
+  createSettingsSection(emptyPumpSettings.settings, getUrlParameter('pumpid'), getUrlParameter('pumptravelid'));
 });

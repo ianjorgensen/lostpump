@@ -1,9 +1,9 @@
-var createSettingsSection = function(dataSettings, pumpid) {
+var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
   settingsSection = new Vue({
     el: '#app',
     data: {
       waiting: false,
-      pumpid: pumpid,
+      pumpid: pumpTravelId || pumpid,
       disableInput: false,
       pumpFound: null,
       regiment: null,
@@ -15,13 +15,19 @@ var createSettingsSection = function(dataSettings, pumpid) {
     },
     mounted: function() {
       if (this.pumpid) {
-        this.loadSample(true);
+        this.loadSample(!!pumpTravelId);
       }
     },
     methods: {
       updateSettings: function(settings) {
         this.regiment = null;
         this.settings = JSON.parse(JSON.stringify(settings))
+      },
+      save: function(save) {
+        console.log('save settings to server', this.settings);
+        $.post("/save", {pumpid: this.pumpid, settings: this.settings}, function(data) {
+          console.log('post',data);
+        });
       },
       calculateRegiment: function(save) {
         console.log('calculateRegiment', save);
@@ -38,6 +44,34 @@ var createSettingsSection = function(dataSettings, pumpid) {
             console.log('post',data);
           });
         }
+      },
+      clipboard: function() {
+        var pumpSettings = JSON.parse(JSON.stringify(this.settings))
+
+        var buildTable = function(table) {
+          table.rows.unshift(table.headers)
+          table.rows.pop();
+
+          var r = textTable(table.rows);
+          console.log(r);
+          return r;
+        };
+
+        console.log(pumpSettings)
+        var basalTable = buildTable(pumpSettings.basal)
+        var bgTargetTablet = buildTable(pumpSettings.bgTarget)
+        var carbRatioTable = buildTable(pumpSettings.carbRatio)
+        var insulinSensitivityTable = buildTable(pumpSettings.insulinSensitivity)
+
+        var text = 'Pump ID: ' + this.pumpid + '\n' +
+          'Aktiv insulin tid: ' + pumpSettings.pumpModel + '\n' +
+          'Pumpe Model: ' + pumpSettings.insulinActionTime + '\n\n' +
+          'Basal-rate \n' + basalTable + '\n\n' +
+          'Kulhydrat-rate \n' + carbRatioTable + '\n\n' +
+          'Insulin Sensisivitet \n' + insulinSensitivityTable + '\n\n' +
+          'Blodsukker Target \n' + bgTargetTablet + '\n\n'
+
+        alert(text);
       },
       createPump: function() {
         this.pumpFound = true;
@@ -69,6 +103,12 @@ var createSettingsSection = function(dataSettings, pumpid) {
         });
       },
       print: function() {
+        var person = prompt("Enter Patient Full Name and Id", "");
+
+        if (person != null) {
+          document.getElementById("patientName").innerHTML = "Patient: " + person;
+        }
+
         window.print()
       }
     }

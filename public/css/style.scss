@@ -95,6 +95,15 @@ label, .pump {
   }
 }
 
+.pumpModel {
+  padding: 10px 0;
+  input {
+    width: 250px;
+    background: white;
+    border-radius: 3px;
+    margin-left: 5px;
+  }
+}
 /* Tablet Sections */
 .pumpSettings li:first-child {
   padding-left: 0;
@@ -109,6 +118,15 @@ label, .pump {
 }
 /*     Table Styles */
 
+.table {
+  margin-bottom: 24px;
+
+  .sum {
+    font-size: 0.80em;
+    padding: 5px;
+  }
+}
+
 table {
   background: white;
   border-radius:3px;
@@ -120,7 +138,6 @@ table {
   width: inherit;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   animation: float 5s infinite;
-  margin-bottom: 24px;
 
   input {
 
