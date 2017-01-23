@@ -1,15 +1,22 @@
-Clipboard generate text friendly version button.
+Sorting Error
+Fix Link
+add total basal to text version
+Copy directly to clipboard
+Add confirm visual
+Remove footer from print version
+style text in print
+make sure if name is empty that its empty in the print
 
 
-Sum basal rates
-
+//Clipboard generate text friendly version button.
+//Sum basal rates
 //Airport printing in one page add name and id info.
 //Change pump id and keep settings
 //Add auto time sorting and type checking on the time field.
 //Re brand to Pump settings saving tool.
 //Generate pump report button.
 //Add pump model to form.
-// Add 00:00 when creating a new pump.
+//Add 00:00 when creating a new pump.
 
 
 March 17th.

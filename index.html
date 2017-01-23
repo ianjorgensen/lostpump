@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gem og se Pumpe Instilinger</title>
+  <title>Pumpeindstillinger</title>
   <script src='/js/lib/vue-2.1.4.js'></script>
   <script src='/js/lib/jquery-3.1.1.min.js'></script>
   <script src='/js/lib/text-table.js'></script>
@@ -18,7 +18,7 @@
 <body>
   <div id='app'>
   <section class='intro'>
-    <h1>Pumpe Instilinger</h1>
+    <h1>Pumpeindstillinger</h1>
     <p class="description">Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne i et simpelt text-format til patient-journalen. Du kan også sende indstillingerne, samt instruktioner for MDI, til patienten via email, såfremt pumpen ikke er tilgængelig af den ene eller anden årsag.</p>
   </section>
   <section class="airportNotice"><h2 class="printHeadline">Insulin Pump Certficate</h2>
@@ -46,11 +46,11 @@
   <section v-if='waiting' class='waiting'><h2>Søger efter pumpe-data<div class="spinner"></div>
   </h2></section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
-    <h2>Basal-rate</h2>
+    <h2>Basalrate</h2>
     <settings-module :disableInput='disableInput':propdata='settings.basal'></settings-module>
     <ol>
       <li>
-        <h2>Kulhydrat-rate</h2>
+        <h2>Kulhydratforhold</h2>
         <settings-module :propdata='settings.carbRatio'></settings-module>
       </li>
       <li>
@@ -58,7 +58,7 @@
         <settings-module :propdata='settings.insulinSensitivity'></settings-module>
       </li>
       <li>
-        <h2>Blodsukker Target</h2>
+        <h2>Blodsukker Mål</h2>
         <settings-module :propdata='settings.bgTarget'></settings-module>
         </ol>
       </li>
@@ -72,11 +72,12 @@
     </div>
 
     <a href='#' class="button save" v-on:click='save'>Gem<i class="fa" aria-hidden="true"></i></a>
-    <a href='#' class="button save" v-on:click='calculateRegiment'>Generate Report<i class="fa" aria-hidden="true"></i></a>
-    <a href='#' class="button save" v-on:click='clipboard'>Copy text friendly version<i class="fa fa-clipboard" aria-hidden="true"></i></a>
+    <a href='#' class="button save" v-on:click='clipboard'><i class="fa fa-clipboard" aria-hidden="true"></i></a>
+    <a href='#' class="button save" v-on:click='calculateRegiment'>Vis MDI behandling<i class="fa" aria-hidden="true"></i></a>
+
   </section>
   <section v-if='!waiting && !!regiment' class='regiment'>
-    <h2 class="printHeadline">Injektions-instrukser</h2>
+    <h2 class="printHeadline">MDI Behandling</h2>
     <p><i>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes.</i></p>
     <p>Du har to valgmuligheder:</p>
     <h3>Du har <b>KUN HURTIGVIRKENDE INSULIN</b> (novorapid, humalog, apidra) i penne/engangssprøjter</h3>

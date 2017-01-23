@@ -7,11 +7,11 @@ var samplePumpSettings = {
       rows: [['00:00','1.4'],['07:00','1'],['17:00','1.5']]
     },
     carbRatio: {
-      headers: ['kl.','gram/IE',],
+      headers: ['kl.','gram/ie',],
       rows: [['00:00','7'],['11:00','8'],['17:30', '7']]
     },
     insulinSensitivity: {
-      headers: ['kl.','mmol/l/IE'],
+      headers: ['kl.','mmol/l/ie'],
       rows: [['00:00','1.3']]
     },
     bgTarget: {
@@ -30,12 +30,12 @@ var emptyPumpSettings = {
     },
     carbRatio: {
       settingType: 'carbRatio',
-      headers: ['kl.','gram/IE',],
+      headers: ['kl.','gram/ie',],
       rows: [['00:00','']]
     },
     insulinSensitivity: {
       settingType: 'insulinSensitivity',
-      headers: ['kl.','mmol/l/IE'],
+      headers: ['kl.','mmol/l/ie'],
       rows: [['00:00','']]
     },
     bgTarget: {

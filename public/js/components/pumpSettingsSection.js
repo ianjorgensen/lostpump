@@ -40,6 +40,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
         //save settings to server
         if(save !== false) {
           console.log('save settings to server', this.settings);
+
           $.post("/save", {pumpid: this.pumpid, settings: this.settings}, function(data) {
             console.log('post',data);
           });
@@ -64,12 +65,13 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
         var insulinSensitivityTable = buildTable(pumpSettings.insulinSensitivity)
 
         var text = 'Pump ID: ' + this.pumpid + '\n' +
-          'Aktiv insulin tid: ' + pumpSettings.pumpModel + '\n' +
-          'Pumpe Model: ' + pumpSettings.insulinActionTime + '\n\n' +
-          'Basal-rate \n' + basalTable + '\n\n' +
-          'Kulhydrat-rate \n' + carbRatioTable + '\n\n' +
+          'Aktiv insulin tid: ' + pumpSettings.insulinActionTime + '\n' +
+          'Pumpe Model: ' + pumpSettings.pumpModel + '\n\n' +
+          'Basalrate \n' + basalTable + '\n\n' +
+          'Kulhydratforhold \n' + carbRatioTable + '\n\n' +
           'Insulin Sensisivitet \n' + insulinSensitivityTable + '\n\n' +
-          'Blodsukker Target \n' + bgTargetTablet + '\n\n'
+          'Blodsukker Mål \n' + bgTargetTablet + '\n\n' +
+          'Link: ' + document.URL + '?pumpid=' + this.pumpid
 
         alert(text);
       },
@@ -103,7 +105,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
         });
       },
       print: function() {
-        var person = prompt("Enter Patient Full Name and Id", "");
+        var person = prompt("Indtast fulde navn og CPR nummer", "");
 
         if (person != null) {
           document.getElementById("patientName").innerHTML = "Patient: " + person;

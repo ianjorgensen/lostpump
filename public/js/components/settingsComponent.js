@@ -50,7 +50,7 @@ Vue.component('settings-module',{
       console.log('sum',sum)
 
       if(sum && !isNaN(sum)) {
-        this.propdata.sum = sum + 'ie/dag'
+        this.propdata.sum = sum + ' ie/dag'
       }
     },
     sortByTime: function() {
