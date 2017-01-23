@@ -373,6 +373,35 @@ td:last-child {
   }
 }
 
+footer {
+  text-align: right;
+
+  p {
+    font-size: 0.75em;
+    color: $secFont;
+  }
+
+  a {
+    color: $bg;
+
+    &:visited {
+      color: $bg;
+    }
+
+    &:hover {
+      color: $button;
+    }
+  }
+
+  i {
+    padding: 0px 2px;
+    color: rgba(231, 76, 60, 0.8);
+    &:hover {
+      color: rgba(231, 76, 60, 1.0);
+    }
+  }
+}
+
 @media print {
   input {
     padding: 0 !important;
