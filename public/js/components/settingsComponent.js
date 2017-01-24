@@ -36,12 +36,21 @@ Vue.component('settings-module',{
       if (this.propdata.settingType == 'basal') {
         this.sumInsulin();
       }
+
     },
     clearEmptyRows: function() {
       for(var i = 0; i < this.propdata.rows.length - 1; i++) {
         if (this.propdata.rows[i].reduce(function(x,y) {return x + y;}) == "") {
           this.propdata.rows.splice(i,1);
           console.log('splicing');
+        }
+
+        if(this.propdata.rows[i][0] && this.propdata.rows[i][0].indexOf(':') == -1 && parseInt(this.propdata.rows[i][0]) < 24) {
+          if(parseInt(this.propdata.rows[i][0]) < 10) {
+            this.propdata.rows[i][0] = '0' + this.propdata.rows[i][0] + ':00';
+          } else {
+            this.propdata.rows[i][0] = this.propdata.rows[i][0] + ':00';
+          }
         }
       }
     },

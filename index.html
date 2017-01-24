@@ -35,7 +35,7 @@
   <section class='pump'>
     <h2 class="printHeadline">Pumpe indstillinger</h2>
     <label for="pumpid">Pumpe ID:</label>
-    <input class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid">
+    <input class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
     <span class='pumpCreate'></span>
     <a href='#' class="pumpCreate button" v-on:click='loadSample'>Søg</a>
   </section>
