@@ -1,5 +1,15 @@
 var settingsSection;
 
+var notify = function(notification) {
+  $('.notification').html(notification);
+  $('.notification').slideDown(function() {
+    setTimeout(function() {
+      $('.notification').slideUp();
+    }, 1000);
+  });
+
+}
+
 var samplePumpSettings = {
   settings: {
     basal: {

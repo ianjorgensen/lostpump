@@ -413,7 +413,7 @@ footer {
     margin: 0px !important;
   }
 
-  h2, label, .pump {
+  h2, label, .pump, .sum, .singleInput {
     font-size: $printTextSize !important;
   }
 
@@ -503,4 +503,22 @@ footer {
       }
     }
   }
+}
+a:hover {
+  cursor: pointer;
+}
+.notification {
+  position: fixed;
+  top: 0px;
+  min-width: 150px;
+  padding: 15px;
+  background: white;
+  left: 50%;
+  color: green;
+  font-size: 15px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  display: none;
 }

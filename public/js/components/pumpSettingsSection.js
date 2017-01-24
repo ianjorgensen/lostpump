@@ -4,6 +4,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
     data: {
       waiting: false,
       pumpid: pumpTravelId || pumpid,
+      url: window.location.origin,
       disableInput: false,
       pumpFound: null,
       regiment: null,
@@ -27,6 +28,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
         console.log('save settings to server', this.settings);
         $.post("/save", {pumpid: this.pumpid, settings: this.settings}, function(data) {
           console.log('post',data);
+          notify('gemt');
         });
       },
       calculateRegiment: function(save) {
@@ -59,21 +61,31 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
         };
 
         console.log(pumpSettings)
+        var basalSum = calculateTotalBasal(JSON.parse(JSON.stringify(pumpSettings.basal)))
         var basalTable = buildTable(pumpSettings.basal)
         var bgTargetTablet = buildTable(pumpSettings.bgTarget)
         var carbRatioTable = buildTable(pumpSettings.carbRatio)
         var insulinSensitivityTable = buildTable(pumpSettings.insulinSensitivity)
 
-        var text = 'Pump ID: ' + this.pumpid + '\n' +
-          'Aktiv insulin tid: ' + pumpSettings.insulinActionTime + '\n' +
-          'Pumpe Model: ' + pumpSettings.pumpModel + '\n\n' +
-          'Basalrate \n' + basalTable + '\n\n' +
-          'Kulhydratforhold \n' + carbRatioTable + '\n\n' +
-          'Insulin Sensisivitet \n' + insulinSensitivityTable + '\n\n' +
-          'Blodsukker Mål \n' + bgTargetTablet + '\n\n' +
-          'Link: ' + document.URL + '?pumpid=' + this.pumpid
 
-        alert(text);
+
+        var text = 'Pump ID: ' + this.pumpid + '\n' +
+          'Aktiv insulin-tid: ' + pumpSettings.insulinActionTime + '\n' +
+          'Pumpefirma og -model: ' + pumpSettings.pumpModel + '\n\n' +
+          'Basalrate \n' + basalTable + '\n' + basalSum + ' ie/dag'  + '\n\n' +
+          'Kulhydrat-insulin-forhold \n' + carbRatioTable + '\n\n' +
+          'Insulin-sensitivitet \n' + insulinSensitivityTable + '\n\n' +
+          'Mål-blodsukker \n' + bgTargetTablet + '\n\n' +
+          'Link: ' + window.location.origin + '?pumpid=' + this.pumpid
+
+        console.log(text);
+
+        new Clipboard('.clipboard', {
+            text: function(trigger) {
+                return text;
+            }
+        });
+        notify('klar til at sætte ind');
       },
       createPump: function() {
         this.pumpFound = true;
@@ -109,6 +121,8 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
 
         if (person != null) {
           document.getElementById("patientName").innerHTML = "Patient: " + person;
+        } else {
+          document.getElementById("patientName").innerHTML = '';
         }
 
         window.print()

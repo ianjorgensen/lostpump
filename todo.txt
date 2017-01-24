@@ -1,15 +1,11 @@
-Copy directly to clipboard.
-Fix Link like the one to email.
-add total basal to text version.
-Add confirm visual
-Remove footer from print version.
-style text in print
-stop links from taking you to top of the page.
-make sure if name is empty that its empty in the print
-
-
 Consider a small license
-
+//style text in print
+//Add confirm visual
+//Copy directly to clipboard.
+//stop links from taking you to top of the page.
+//make sure if name is empty that its empty in the print
+//Fix Link like the one to email.
+//add total basal to text version.
 //smart time detection
 //Clipboard generate text friendly version button.
 //Sum basal rates

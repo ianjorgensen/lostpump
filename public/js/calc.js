@@ -95,7 +95,7 @@ var hourDoseBreakDown = function(minuteDoses) {
 }
 
 var roundHalf = function(num) {
-  return Math.round(num*2)/2
+  return Math.round(num)
 }
 
 var calculateTotalBasal = function(basal) {

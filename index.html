@@ -6,6 +6,7 @@
   <script src='/js/lib/jquery-3.1.1.min.js'></script>
   <script src='/js/lib/text-table.js'></script>
   <script src="https://use.fontawesome.com/e81f5f3c0d.js"></script>
+  <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.16/clipboard.min.js"></script>
 
   <script src='/js/components/settingsComponent.js'></script>
   <script src='/js/components/pumpSettingsSection.js'></script>
@@ -16,10 +17,11 @@
   <link rel='stylesheet' href='/css/style.min.css'>
 </head>
 <body>
+  <div class='notification'></div>
   <div id='app'>
   <section class='intro'>
     <h1>Pumpeindstillinger</h1>
-    <p class="description">Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne i et simpelt text-format til patient-journalen. Du kan også sende indstillingerne, samt instruktioner for MDI, til patienten via email, såfremt pumpen ikke er tilgængelig af den ene eller anden årsag.</p>
+    <p class="description">Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne som tekst til journalen. Du kan også sende indstillingerne og instruktion for MDI-behandling ved pumpenedbrud eller lignende, til patienten via email.</p>
   </section>
   <section class="airportNotice"><h2 class="printHeadline">Insulin Pump Certficate</h2>
    <p id='patientName'></p>
@@ -46,35 +48,35 @@
   <section v-if='waiting' class='waiting'><h2>Søger efter pumpe-data<div class="spinner"></div>
   </h2></section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
+    <div class='pumpModel'>
+      <label for="pumpModel">Pumpefirma og -model:</label><input :disabled='disableInput' class='singleInput' v-model='settings.pumpModel' type="text" id="pumpModel">
+    </div>
     <h2>Basalrate</h2>
     <settings-module :disableInput='disableInput':propdata='settings.basal'></settings-module>
     <ol>
       <li>
-        <h2>Kulhydratforhold</h2>
+        <h2>Kulhydrat-insulin-forhold</h2>
         <settings-module :propdata='settings.carbRatio'></settings-module>
       </li>
       <li>
-        <h2>Insulin Sensisivitet</h2>
+        <h2>Insulin-sensitivitet</h2>
         <settings-module :propdata='settings.insulinSensitivity'></settings-module>
       </li>
       <li>
-        <h2>Blodsukker Mål</h2>
+        <h2>Mål-blodsukker</h2>
         <settings-module :propdata='settings.bgTarget'></settings-module>
         </ol>
       </li>
     </ol>
     <div class='clear'></div>
     <div class='insulinActionTime'>
-      <label for="insulinActionTime">Aktiv insulin tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
-    </div>
-    <div class='pumpModel'>
-      <label for="pumpModel">Pumpe Model:</label><input :disabled='disableInput' class='singleInput' v-model='settings.pumpModel' type="text" id="pumpModel">
+      <label for="insulinActionTime">Aktiv insulin-tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
     </div>
 
-    <a href='#' class="button save" v-on:click='save'>Gem<i class="fa" aria-hidden="true"></i></a>
-    <a href='#' class="button save" v-on:click='clipboard'><i class="fa fa-clipboard" aria-hidden="true"></i></a>
-    <a href='#' class="button save" v-on:click='calculateRegiment'>Vis MDI behandling<i class="fa" aria-hidden="true"></i></a>
-
+    <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
+    <a class="button save clipboard" v-on:click='clipboard'>Kopiere til patient journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
+    <a class='button email print' target='_black' :href="'mailto:?subject=Din Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+    <a class="button save" v-on:click='calculateRegiment'>Vis MDI behandling<i class="fa" aria-hidden="true"></i></a>
   </section>
   <section v-if='!waiting && !!regiment' class='regiment'>
     <h2 class="printHeadline">MDI Behandling</h2>
@@ -128,8 +130,7 @@
         </ul>
       </li>
     </ol>
-    <a href='#' class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
-    <a class='button email print' target='_black' :href="'mailto:?subject=Pump Settings&body=Pumpeindstillinger https://hidden-bastion-66980.herokuapp.com/?pumptravelid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+    <a class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
   </section>
   <footer>
     <p>Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="http://www.linehq.com" target="_blank">Line Health</a></p>
