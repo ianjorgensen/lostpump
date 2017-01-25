@@ -5,9 +5,8 @@ var notify = function(notification) {
   $('.notification').slideDown(function() {
     setTimeout(function() {
       $('.notification').slideUp();
-    }, 1000);
+    }, 1250);
   });
-
 }
 
 var samplePumpSettings = {

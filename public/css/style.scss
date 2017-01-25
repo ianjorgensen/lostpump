@@ -438,7 +438,7 @@ footer {
     width: 80px !important;
   }
   // Hide stuff not needed in print
-  .pumpCreate, .notfound, .waiting, .print, .save, .intro {
+  .pumpCreate, .notfound, .waiting, .print, .save, .intro, footer  {
     display: none;
   }
 
@@ -511,6 +511,7 @@ a:hover {
   position: fixed;
   top: 0px;
   min-width: 150px;
+  margin-left: -90px;
   padding: 15px;
   background: white;
   left: 50%;
