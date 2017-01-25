@@ -75,7 +75,7 @@
 
     <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
     <a class="button save clipboard" v-on:click='clipboard'>Kopiere til patient journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
-    <a class='button email print' target='_black' :href="'mailto:?subject=Din Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+    <a class='button email print' target='_black' :href="'mailto:?subject=Dine Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
     <a class="button save" v-on:click='calculateRegiment'>Vis MDI behandling<i class="fa" aria-hidden="true"></i></a>
   </section>
   <section v-if='!waiting && !!regiment' class='regiment'>
