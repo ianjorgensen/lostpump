@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- TEST -->
   <title>Pumpeindstillinger</title>
   <script src='/js/lib/vue-2.1.4.js'></script>
   <script src='/js/lib/jquery-3.1.1.min.js'></script>
@@ -72,11 +73,13 @@
     <div class='insulinActionTime'>
       <label for="insulinActionTime">Aktiv insulin-tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
     </div>
-
-    <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
-    <a class="button save clipboard" v-on:click='clipboard'>Kopiere til patient journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
-    <a class='button email print' target='_black' :href="'mailto:?subject=Dine Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
-    <a class="button save" v-on:click='calculateRegiment'>Vis MDI behandling<i class="fa" aria-hidden="true"></i></a>
+    <div class="menu">
+      <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
+      <a class="button save clipboard" v-on:click='clipboard'>Kopiér til journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
+      <a class='button email print' target='_black' :href="'mailto:?subject=Dine Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-envelope" aria-hidden="true"></i></a>
+      <a class="button save" v-on:click='calculateRegiment'>Vis MDI behandling<i class="fa" aria-hidden="true"></i></a>
+      <a class="button print" v-on:click='print'>Udskriv <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+    </div>
   </section>
   <section v-if='!waiting && !!regiment' class='regiment'>
     <h2 class="printHeadline">MDI Behandling</h2>
@@ -130,7 +133,7 @@
         </ul>
       </li>
     </ol>
-    <a class="button print" v-on:click='print'>Print <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+
   </section>
   <footer>
     <p>Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="http://www.linehq.com" target="_blank">Line Health</a></p>

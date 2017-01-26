@@ -1,4 +1,6 @@
 Consider a small license
+Disable Print button unless MDI has been generated (?)
+
 //style text in print
 //Add confirm visual
 //Copy directly to clipboard.

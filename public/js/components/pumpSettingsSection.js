@@ -67,8 +67,6 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
         var carbRatioTable = buildTable(pumpSettings.carbRatio)
         var insulinSensitivityTable = buildTable(pumpSettings.insulinSensitivity)
 
-        
-
         var text = 'Pump ID: ' + this.pumpid + '\n' +
           'Aktiv insulin-tid: ' + pumpSettings.insulinActionTime + '\n' +
           'Pumpefirma og -model: ' + pumpSettings.pumpModel + '\n\n' +

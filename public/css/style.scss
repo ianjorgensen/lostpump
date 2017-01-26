@@ -5,18 +5,19 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:200,300,400,700');
 
 // COLORS
-$bg: #3498db;
+$bg: #b6daf2;
 $primBG: #ecf0f1;
 $secBG: #cfd9db;
 $primFont: #3c4b4f;
 $secFont: #79939a;
-$darkColoredFont: #1f74ac;
-$button: #99cbed;
+$darkColoredFont: rgb(31, 116, 172);
+$button: #3498db;
+$buttonHover: #99cbed;
 $tableHover: #d4e8f6;
 $tableOdd: white;
 $tableBorder: #cdd1d5;
 $inputColor: #ffffff;
-$thBG: #61797f;
+$thBG: rgb(98, 122, 128);
 
 $bigSize: 16px;
 $printTextSize: 0.4em;
@@ -49,7 +50,7 @@ body {
     min-height: 100%;
     min-width: 400px;
     max-width: 900px;
-    border-radius: 0px;
+    border-radius: 3px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
     section {
@@ -303,7 +304,7 @@ td:last-child {
   display: inline-block;
 
   &:hover{
-  background: $bg;
+  background: $buttonHover;
   transition: background-color 0.2s ease;
   }
 
@@ -382,10 +383,10 @@ footer {
   }
 
   a {
-    color: $bg;
+    color: $buttonHover;
 
     &:visited {
-      color: $bg;
+      color: $buttonHover;
     }
 
     &:hover {
@@ -522,4 +523,19 @@ a:hover {
   text-transform: uppercase;
   text-align: center;
   display: none;
+}
+
+.menu {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 0px 20px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  text-align: center;
+  background-color: rgba(98, 122, 128, 0.95);
+  .button {
+    margin: 15px 4px 15px 4px;
+  }
 }
