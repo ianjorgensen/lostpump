@@ -4,6 +4,37 @@
 // FONT IMPORTS
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:200,300,400,700');
 
+// Variables
+
+$lineHeight: 1.45em;
+
+// MIXINS
+
+@mixin hideOverflow ($lines) {
+  overflow: hidden;
+  // display: -webkit-box !important;
+  line-height: $lineHeight;
+  max-height: $lines !important;
+  // -webkit-text-fill-color: transparent;
+  // -webkit-box-orient: vertical;
+  // -webkit-background-clip: text;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+  &.showOverflow {
+    overflow: visible;
+    display: normal !important;
+    max-height: none !important;
+    // -webkit-text-fill-color: $darkColoredFont;
+    background: none;
+    // -webkit-box-orient: vertical;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+    // margin-bottom: $nav-height;
+  }
+  @content;
+}
+
+
 // COLORS
 $bg: #d9e0e2;
 $primBG: #f0f3f4;
@@ -71,11 +102,15 @@ body {
       }
     }
     p.description {
+      position: relative;
       font-size: 0.8em;
       color: $secFont;
       text-align: justify;
-    }
+      overflow: hidden;
+      @include hideOverflow (0em) {
 
+      }
+    }
   }
 }
 
@@ -527,11 +562,11 @@ a:hover {
 
 .menu {
   position: fixed;
-  min-width: 730px;
+  min-width: 720px;
   bottom: 0px;
   left: 50%;
   transform: translate(-50%, 0);
-  padding: 0px 20px;
+  padding: 0px 10px;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   text-align: center;
