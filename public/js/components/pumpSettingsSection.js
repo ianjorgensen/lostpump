@@ -92,7 +92,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
           'Kulhydrat-insulin-forhold \n' + carbRatioTable + '\n\n' +
           'Insulin-sensitivitet \n' + insulinSensitivityTable + '\n\n' +
           'Mål-blodsukker \n' + bgTargetTablet + '\n\n' +
-          'Link: ' + window.location.origin + '?pumpid=' + this.pumpid
+          'Link: \n' + window.location.origin + '?pumpid=' + this.pumpid
 
         console.log(text);
 
