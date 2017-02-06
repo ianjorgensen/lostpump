@@ -1,4 +1,4 @@
-var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
+var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disableInput) {
   settingsSection = new Vue({
     el: '#app',
     data: {
@@ -6,8 +6,11 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
       pumpid: pumpTravelId || pumpid,
       url: window.location.origin,
       disableInput: false,
+      disableInputGlobal: disableInput,
       pumpFound: null,
+      showFullIntroText: false,
       regiment: null,
+      showMDI: disableInput,
       settings: JSON.parse(JSON.stringify(dataSettings))
     },
     updated: function() {
@@ -20,6 +23,9 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
       }
     },
     methods: {
+      toggleIntroText: function() {
+        this.showFullIntroText = !this.showFullIntroText
+      },
       updateSettings: function(settings) {
         this.regiment = null;
         this.settings = JSON.parse(JSON.stringify(settings))
@@ -30,6 +36,18 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
           console.log('post',data);
           notify('gemt');
         });
+      },
+      toggleMDI: function() {
+        if (!this.showMDI) {
+            this.calculateRegiment()
+        }
+        var self = this;
+        self.showMDI = !self.showMDI;
+        setTimeout(function() {
+
+            window.scrollTo(0,document.body.scrollHeight);
+        }, 5);
+
       },
       calculateRegiment: function(save) {
         console.log('calculateRegiment', save);
@@ -90,6 +108,10 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId) {
         this.updateSettings(emptyPumpSettings.settings);
       },
       loadSample: function(calculate) {
+        if (this.pumpFound) {
+          return;
+        }
+
         this.waiting = true;
 
         var _this = this;

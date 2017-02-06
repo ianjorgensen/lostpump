@@ -43,6 +43,7 @@ $primFont: #3c4b4f;
 $secFont: #79939a;
 $darkColoredFont: rgb(31, 116, 172);
 $button: #3498db;
+$buttonDark: #7093ab;
 $buttonHover: #99cbed;
 $tableHover: #d4e8f6;
 $tableOdd: white;
@@ -53,10 +54,15 @@ $thBG: rgb(98, 122, 128);
 $bigSize: 16px;
 $printTextSize: 0.4em;
 
+html,body {
+  height: 100%;
+}
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1.15em;
   line-height: 1.6em;
+  display: flex;
+  flex-direction: column;
   background-color: $bg;
   color: $primFont;
 
@@ -71,19 +77,20 @@ body {
     padding: 10px 0px;
   }
 
-
-  div#app {
+  .card {
     background: $primBG;
-    margin: 10% auto;
-    display: block;
-    margin: 3% auto;
-    padding: 3%;
-    min-height: 100%;
-    min-width: 400px;
-    max-width: 900px;
+    margin: 1.5% auto;
+    padding: 45px;
     border-radius: 3px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    width: 824px;
+  }
 
+  .app {
+    position: relative;
+    display: block;
+    margin: 1.5% auto 100px auto;
+  }
     section {
       padding-bottom: 15px;
     }
@@ -107,19 +114,21 @@ body {
       color: $secFont;
       text-align: justify;
       overflow: hidden;
-      @include hideOverflow (0em) {
-
-      }
     }
-  }
-}
 
+}
+.spacer {
+  flex: 1;
+}
 .save {
   margin-top: 15px;
 }
 
 label, .pump {
   font-size: $bigSize;
+}
+.pump {
+  padding-bottom: 0px;
 }
 
 .insulinActionTime {
@@ -132,7 +141,7 @@ label, .pump {
 }
 
 .pumpModel {
-  padding: 10px 0;
+  padding: 20px 0 10px 0;
   input {
     width: 250px;
     background: white;
@@ -146,7 +155,7 @@ label, .pump {
 }
 .pumpSettings li {
   float:left;
-  padding: 0 5px;
+  padding: 0 10px;
 }
 
 .clear {
@@ -165,15 +174,9 @@ label, .pump {
 
 table {
   background: white;
-  border-radius:3px;
-  border-collapse: collapse;
-//  height: 320px;
-//  margin: auto;
-//  max-width: 600px;
+
   padding:5px;
   width: inherit;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  animation: float 5s infinite;
 
   input {
 
@@ -181,29 +184,35 @@ table {
 }
 
 th {
-  color: #fff;
-  background: $thBG;
-  border-right: 1px solid $thBG;
+  background: #d9e0e2;
+  border-right: 1px solid $tableBorder;
   font-size: 0.70em;
   padding: 8px;
   text-align: left;
   vertical-align: middle;
 }
 
-th:first-child {
-  border-top-left-radius:3px;
+td:first-child, th:first-child {
+  //border-top-left-radius:3px;
+  border-left:none;
 }
 
-th:last-child {
-  border-top-right-radius:3px;
+td:last-child, th:last-child {
+  //border-top-right-radius:3px;
   border-right:none;
+}
+
+tr:last-child {
+  //border-top-right-radius:3px;
+  td {
+
+  }
+  border-bottom:none;
 }
 
 
 tr {
-  color:#666B85;
   font-weight:normal;
-  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
 }
 
 /*
@@ -332,9 +341,10 @@ td:last-child {
   font-size: 0.85em;
   font-weight: 200;
   text-transform: uppercase;
-  background: $button;
+  background: $buttonDark;
   padding: 9px 12px;
   color: white;
+  height: initial;
   border-radius: 3px;
   display: inline-block;
 
@@ -355,6 +365,11 @@ td:last-child {
 
 /*    SYSTEM STATUS FEEDBACK SECTIONS */
 
+.notfound {
+  padding-top: 40px;
+  font-size: 16px;
+}
+
 .waiting, .notfound {
 
 
@@ -368,11 +383,14 @@ td:last-child {
 
 .notfound h2 {
 //  background: rgba(211, 84, 0, 0.2);
-  color: rgba(211, 84, 0,1.0);
+  color: #d66c51;
 }
 
 .waiting h2 {
-  color:  rgba(39, 174, 96,1.0);
+  color: #74cc99;
+}
+.waiting {
+  padding-top: 40px;
 }
 
 /*     LOAD ANIMATION */
@@ -380,7 +398,7 @@ td:last-child {
 .spinner {
   width: 18px;
   height: 18px;
-  background-color: rgba(39, 174, 96,1.0);
+  background-color: #74cc99;
   display: inline-block;
 
   margin: 0px 0px -3px 20px;
@@ -390,6 +408,13 @@ td:last-child {
   animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
 
+.link {
+  color: $button;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
 @-webkit-keyframes sk-rotateplane {
   0% { -webkit-transform: perspective(120px) }
   50% { -webkit-transform: perspective(120px) rotateY(180deg) }
@@ -411,6 +436,7 @@ td:last-child {
 
 footer {
   text-align: right;
+  padding: 0 20px 10px 0;
 
   p {
     font-size: 0.75em;
@@ -418,14 +444,14 @@ footer {
   }
 
   a {
-    color: $buttonHover;
+    color: $button;
 
     &:visited {
-      color: $buttonHover;
+      color: $button;
     }
 
     &:hover {
-      color: $button;
+      text-decoration: underline;
     }
   }
 
@@ -443,6 +469,11 @@ footer {
     padding: 0 !important;
     height: 20px;
   }
+  .regiment {
+    border: 0px !important;
+    padding: 0px !important;
+    padding-top: 20px;
+  }
 
   .singleInput {
     height: 100% !important;
@@ -457,7 +488,7 @@ footer {
     background: white !important;
   }
 
-  #app {
+  .app {
     background: white !important;
     margin: 0 auto !important;
     display: block;
@@ -467,6 +498,7 @@ footer {
   }
 
   section {
+    background: white !important;
     padding-bottom: 0 !important;
   }
 
@@ -474,8 +506,8 @@ footer {
     width: 80px !important;
   }
   // Hide stuff not needed in print
-  .pumpCreate, .notfound, .waiting, .print, .save, .intro, footer  {
-    display: none;
+  .card-intro, .hideInPrint, .pumpCreate, .notfound, .waiting, .print, .save, .intro, footer  {
+    display: none !important;
   }
 
   // Show stuff needed in print
@@ -543,15 +575,17 @@ footer {
 a:hover {
   cursor: pointer;
 }
+$green: #74cc99;
+
 .notification {
   position: fixed;
   top: 0px;
   min-width: 150px;
   margin-left: -90px;
   padding: 15px;
-  background: white;
+  color: white;
   left: 50%;
-  color: green;
+  background: $green;
   font-size: 15px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -561,17 +595,88 @@ a:hover {
 }
 
 .menu {
-  position: fixed;
-  min-width: 720px;
+  position: absolute;
   bottom: 0px;
   left: 50%;
-  transform: translate(-50%, 0);
+  height: initial;
+  transform: translate(-50%, 100%);
   padding: 0px 10px;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
   text-align: center;
-  background-color: rgba(98, 122, 128, 0.95);
+  background-color: #7d8084;
   .button {
-    margin: 15px 4px 15px 4px;
+    margin: 8px 4px;
+    background: none;
+
+    &:hover {
+      color: $buttonHover;
+    }
   }
+}
+.menu-stretch {
+  width: 530px;
+}
+
+.intro {
+  a {
+    color: $button;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+.regiment {
+  border: 1px solid lightgray;
+  margin-top: 20px;
+  padding-top: 20px;
+  background: white;
+  padding: 20px;
+}
+.close {
+  display: flex;
+
+  .close-text {
+    font-size: 15px;
+    line-height: 21px;
+    padding-right: 5px;
+    opacity: 0.6;
+  }
+  .close-icon {
+    font-size: 25px;
+    color: #d66c51;
+  }
+  color: gray;
+  padding: 3px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.close:hover {
+  .close-icon {
+    color: #d23912;
+  }
+  .close-text {
+    opacity: 1;
+  }
+}
+.showMDI {
+  font-size: 15px;
+  margin-top: 15px;
+  display: inline-block;
+  color: $button;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.card-intro {
+  width: 914px;
+  margin: 0 auto;
+  padding-top: 2.5%;
+}
+.fa-heart {
+  color: #d66c51;
 }

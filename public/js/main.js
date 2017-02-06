@@ -2,10 +2,10 @@ var settingsSection;
 
 var notify = function(notification) {
   $('.notification').html(notification);
-  $('.notification').slideDown(function() {
+  $('.notification').slideDown(100, function() {
     setTimeout(function() {
       $('.notification').slideUp();
-    }, 1250);
+    }, 1000);
   });
 }
 
@@ -86,11 +86,12 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+disableInputGlobal = false;
 $(function(){
   if(getUrlParameter('pumptravelid')) {
     disableInputGlobal = true;
     $('.pumpCreate, .save, .intro').hide();
   }
 
-  createSettingsSection(emptyPumpSettings.settings, getUrlParameter('pumpid'), getUrlParameter('pumptravelid'));
+  createSettingsSection(emptyPumpSettings.settings, getUrlParameter('pumpid'), getUrlParameter('pumptravelid'), disableInputGlobal);
 });

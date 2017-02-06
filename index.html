@@ -18,14 +18,21 @@
   <link rel='stylesheet' href='/css/style.min.css'>
 </head>
 <body>
-  <div class='notification'></div>
   <div id='app'>
-  <section class='intro'>
-    <h1>Pumpeindstillinger</h1>
-    <h2>Opbevar pumpeindstillinger &amp; generér MDI instruktioner – udskriv, send via email eller kopiér til journal.</h2>
-    <p class="description">Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne som tekst til journalen. Du kan også sende indstillingerne og instruktion for MDI-behandling ved pumpenedbrud eller lignende, til patienten via email.</p>
-    <button class="readmore">Læs mere</button>
-  </section>
+  <div class='notification'></div>
+  <div
+    class='card-intro'
+    v-if='!disableInputGlobal'>
+    <section class='intro'>
+      <h1>Pumpeindstillinger</h1>
+      <p class='description'>
+        Opbevar pumpeindstillinger &amp; generér MDI instruktioner – udskriv, send via email eller kopiér til journal.
+        <span v-if='showFullIntroText'>Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne som tekst til journalen. Du kan også sende indstillingerne og instruktion for MDI-behandling ved pumpenedbrud eller lignende, til patienten via email.</span>
+        <a @click='toggleIntroText' v-if='!showFullIntroText' class="readmore">læs mere</a>
+      </p>
+    </section>
+  </div>
+  <div class='card app'>
   <section class="airportNotice"><h2 class="printHeadline">Insulin Pump Certficate</h2>
    <p id='patientName'></p>
    <p>It is hereby certified that this patient has Type 1 diabetes and is treated with an insulin pump.</p>
@@ -40,13 +47,26 @@
   <section class='pump'>
     <h2 class="printHeadline">Pumpe indstillinger</h2>
     <label for="pumpid">Pumpe ID:</label>
-    <input class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
+    <input autofocus="autofocus" class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
     <span class='pumpCreate'></span>
-    <a href='#' class="pumpCreate button" v-on:click='loadSample'>Søg</a>
+    <a
+      href='#'
+      class="pumpCreate button"
+      v-if='!pumpFound'
+      v-on:click='loadSample'>
+      Søg eller opret</a>
   </section>
+  <a
+    href='/'
+    class='close hideInPrint'
+    tabindex="-1"
+    v-if='pumpFound && !disableInputGlobal'>
+    <span class='close-text'>luk pumpe</span>
+    <span class='close-icon fa fa-times-circle'></span>
+  </a>
   <section v-if='pumpFound === false' class='notfound'>
     <h2>Ingen pumpe fundet.</h2>
-    <a href='#' class="pumpCreate button" v-on:click='createPump'>opret ny pumpe</a>
+    <a href='#' class="pumpCreate link" v-on:click='createPump'>Opret ny pumpe.</a>
   </section>
   <section v-if='waiting' class='waiting'><h2>Søger efter pumpe-data<div class="spinner"></div>
   </h2></section>
@@ -75,15 +95,14 @@
     <div class='insulinActionTime'>
       <label for="insulinActionTime">Aktiv insulin-tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
     </div>
-    <div class="menu">
+    <div class="menu" :class='{ "menu-stretch": !disableInputGlobal }'>
       <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
       <a class="button save clipboard" v-on:click='clipboard'>Kopiér til journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
       <a class='button email print' target='_black' :href="'mailto:?subject=Dine Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-envelope" aria-hidden="true"></i></a>
-      <a class="button save" v-on:click='calculateRegiment'>Vis MDI behandling<i class="fa" aria-hidden="true"></i></a>
       <a class="button print" v-on:click='print'>Udskriv <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
     </div>
   </section>
-  <section v-if='!waiting && !!regiment' class='regiment'>
+  <section v-if='!waiting && !!regiment && showMDI' class='regiment'>
     <h2 class="printHeadline">MDI Behandling</h2>
     <p><i>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes.</i></p>
     <p>Du har to valgmuligheder:</p>
@@ -137,10 +156,19 @@
     </ol>
 
   </section>
+  <a
+    class="showMDI hideInPrint"
+    v-if='!waiting && pumpFound && !disableInputGlobal'
+    v-on:click='toggleMDI'>
+    <span v-if='showMDI'>Skjul</span><span v-if='!showMDI'>Vis</span> MDI behandling<i class="fa" aria-hidden="true"></i>
+  </a>
+  </div>
+
+
+  </div>
+  <div class='spacer'></div>
   <footer>
     <p>Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="http://www.linehq.com" target="_blank">Line Health</a></p>
   </footer>
-
-  </div>
 </body>
 </html>
