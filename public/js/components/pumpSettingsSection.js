@@ -8,7 +8,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
       disableInput: false,
       disableInputGlobal: disableInput,
       pumpFound: null,
-      showFullIntroText: false,
+      showFullIntroText: true,
       regiment: null,
       showMDI: disableInput,
       settings: JSON.parse(JSON.stringify(dataSettings))
