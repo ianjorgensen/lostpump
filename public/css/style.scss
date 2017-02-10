@@ -626,6 +626,29 @@ $green: #74cc99;
       text-decoration: underline;
     }
   }
+
+  ul {
+    white-space: nowrap;
+    li {
+      display: block;
+      margin-right: 90px;
+      list-style: none;
+      display: inline;
+
+      img {
+        padding: 10px;
+      }
+    }
+
+    li:-child  {
+      margin-right: none;
+    }
+
+    li:last-child {
+      margin-right: none;
+      position: relative;
+    }
+  }
 }
 .regiment {
   border: 1px solid lightgray;

@@ -4,6 +4,8 @@ var path = require('path')
 var mongojs = require('mongojs')
 var db = mongojs('root:root@ds133338.mlab.com:33338/lostpump', ['pumps'])
 
+app.use(express.static('public'))
+
 app.set('port', (process.env.PORT || 5000));
 
 var bodyParser = require('body-parser');
