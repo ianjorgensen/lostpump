@@ -1,10 +1,9 @@
-Show all text when you first come in.
-Add logo and contact details paragraph with mention of kirsten and contact.
+
 New Pump search and pump creation interface
 
 Consider a small license
-Disable Print button unless MDI has been generated (?)
 
+// Add logo and contact details paragraph with mention of kirsten and contact.
 //style text in print
 //Add confirm visual
 //Copy directly to clipboard.
