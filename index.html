@@ -27,6 +27,7 @@
       <h1>Pumpeindstillinger</h1>
       <p class='description'>
         Opbevar pumpeindstillinger &amp; generér MDI instruktioner – udskriv, send via email eller kopiér til journal.
+        <a @click='toggleIntroText' v-if='!showFullIntroText' class="readmore">læs mere</a>
         <span v-if='showFullIntroText'>Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne som tekst til journalen. Du kan også sende indstillingerne og instruktion for MDI-behandling ved pumpenedbrud eller lignende, til patienten via email.
         </br></br>
          Har du spørgsmål til hvordan værktøjet passer ind i daglig brug på klinikken, så send en så send en <a href="mailto:kirsten.noergaard@regionh.dk?Subject=Brug%20af%20pumpeværktøj" target="_top">email</a> til <b>Kirsten Nørgaard (MD, DMSc, MHPE, Associate Professor)</b>.
@@ -40,7 +41,6 @@
           <li><a href="https://www.steno.dk" target="_blank"><img src="assets/Steno_diabetes_center.png" width="145" alt="Hvidovre Hospital"></a></li>
         </ul>
         </span>
-        <a @click='toggleIntroText' v-if='!showFullIntroText' class="readmore">læs mere</a>
       </p>
     </section>
   </div>
