@@ -129,7 +129,88 @@ label, .pump {
 }
 .pump {
   padding-bottom: 0px;
+
 }
+
+
+.initialSearch {
+
+  //padding-bottom: 200px ;
+//  display: block;
+  //position: absolute;
+  //left: 50%;
+  //transform: translate(-50%, 0);
+
+  .container {
+  width: 400px;
+  margin: 0 auto;
+  position: relative;
+  right: 15px;
+  }
+
+
+  label {
+    display: none;
+  }
+
+  input {
+    width: 100%;
+    padding: 15px;
+    height: 26px;
+    border-radius: 5px !important;
+  }
+  a.button {
+    position: relative;
+    bottom: 53px;
+    left: 27px;
+    float: right;
+    margin: none !important;
+    padding: 18px 10px !important;
+    font-size: 0.85em;
+    font-weight: 400;
+    text-transform: uppercase;
+    background: $buttonDark;
+    color: white;
+    border-radius: 2px;
+
+    i {
+      padding-right: 5px;
+    }
+
+
+
+    //Only styling from here, you can discard this
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+
+    transition: all .2s;
+
+    &:hover {
+      background-color: $buttonHover;
+      color: #fff;
+    }
+  }
+
+
+  /*
+    a.button {
+    font-size: 0.85em;
+    font-weight: 200;
+    text-transform: uppercase;
+    background: $buttonDark;
+    padding: none;
+    color: white;
+    height: initial;
+    border-radius: 3px;
+    display: inline-block;
+  }
+*/
+}
+
 
 .insulinActionTime {
   input {
