@@ -112,10 +112,14 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
           return;
         }
 
-        this.waiting = true;
-
         var _this = this;
+
+        var waitingTimeout = setTimeout(function() {
+          _this.waiting = true;
+        }, 300);
+
         $.getJSON('/pump/' + this.pumpid, function( data ) {
+          clearTimeout(waitingTimeout);
           _this.waiting = false;
 
           console.log('pump data',data);

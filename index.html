@@ -25,26 +25,50 @@
     v-if='!disableInputGlobal'>
     <section class='intro'>
       <h1>Pumpeindstillinger</h1>
-      <p class='description'>
-        Opbevar pumpeindstillinger &amp; generér MDI instruktioner – udskriv, send via email eller kopiér til journal.
-        <span v-if='showFullIntroText'>Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne som tekst til journalen. Du kan også sende indstillingerne og instruktion for MDI-behandling ved pumpenedbrud eller lignende, til patienten via email.
-        </br></br>
-         Har du spørgsmål til hvordan værktøjet passer ind i daglig brug på klinikken, så send en <a href="mailto:kirsten.noergaard@regionh.dk?Subject=Brug%20af%20pumpeværktøj" target="_top">email</a> til <b>Kirsten Nørgaard (MD, DMSc, MHPE, Associate Professor)</b>.
-        </br></br>
-        Opstår der problemer med værktøjet, eller har du forslag til nye funktioner, så send en <a href="mailto:hi@linehq.com?Subject=Regarding%20Pump%20Tool" target="_top">email</a> til <a href="http://www.linehq.com" target="_blank">Line Health</a>.
-        </br></br>
-        På nuværende tidspunkt bliver værktøjet brugt af diabetesklinikkerne på
-        <ul v-if='showFullIntroText'>
-          <li><a href="https://www.hvidovrehospital.dk" target="_blank"><img src="assets/Hvidovre_hospital.png" alt="Hvidovre Hospital"></a></li>
-          <li><a href="https://www.nordsjaellandshospital.dk" target="_blank"><img src="assets/Hilleroed_hospital.png" alt="Hillerød Hospital"></a></li>
-          <li><a href="https://www.steno.dk" target="_blank"><img src="assets/Steno_diabetes_center.png" width="145" alt="Hvidovre Hospital"></a></li>
-        </ul>
-        </span>
-        <a @click='toggleIntroText' v-if='!showFullIntroText' class="readmore">læs mere</a>
-      </p>
+        <div class='description'>
+          Opbevar pumpeindstillinger &amp; generér MDI instruktioner - udskriv, send via email eller kopiér til journal. <a @click='toggleIntroText' v-if='!showFullIntroText' class="readmore">læs mere</a>
+          <span v-if='showFullIntroText'>Dette værktøj gemmer pumpeindstillinger. Du kan fremsøge en eksisterende pumpe ved hjælp af dens pumpe-ID, eller du kan oprette en ny pumpe. Derefter kan du ændre og gemme indstillinger som det passer, og du har mulighed for at kopiere indstillingerne som tekst til journalen. Du kan også sende indstillingerne og instruktion for MDI-behandling ved pumpenedbrud eller lignende, til patienten via email.
+          </br></br>
+           Har du spørgsmål til hvordan værktøjet passer ind i daglig brug på klinikken, så send en <a href="mailto:kirsten.noergaard@regionh.dk?Subject=Brug%20af%20pumpeværktøj" target="_top">email</a> til Kirsten Nørgaard (MD, DMSc, MHPE, Associate Professor).
+          </br></br>
+          Opstår der problemer med værktøjet, eller har du forslag til nye funktioner, så send en <a href="mailto:hi@linehq.com?Subject=Regarding%20Pump%20Tool" target="_top">email</a> til <a href="http://www.linehq.com" target="_blank">Line Health</a>.
+          </br></br>
+          På nuværende tidspunkt bliver værktøjet brugt af diabetesklinikkerne på:
+          <ul v-if='showFullIntroText' class='hospitals'>
+            <li><a href="https://www.hvidovrehospital.dk" target="_blank"><img src="assets/Hvidovre_hospital.png" alt="Hvidovre Hospital"></a></li>
+            <!--<li><a href="https://www.nordsjaellandshospital.dk" target="_blank"><img src="assets/Hilleroed_hospital.png" alt="Hillerød Hospital"></a></li>
+            <li><a href="https://www.steno.dk" target="_blank"><img src="assets/Steno_diabetes_center.png" width="145" alt="Hvidovre Hospital"></a></li>-->
+          </ul>
+          </span>
+      </div>
     </section>
   </div>
-  <div class='card app'>
+  <div v-if='!pumpFound' class='card-intro search'>
+    <section v-bind:class="{ initialSearch: !pumpFound }" class='pump'>
+      <div class="initialSearch-inner">
+        <h2 class="printHeadline">Pumpe indstillinger</h2>
+        <label for="pumpid">Pumpe ID:</label>
+        <input placeholder="Pumpe ID" autofocus="autofocus" class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
+        <span class='pumpCreate'></span>
+        <a
+          href='#'
+          class="pumpCreate button"
+          v-if='!pumpFound'
+          v-on:click='loadSample'>
+          <i class="fa fa-search" aria-hidden="true"></i> Søg eller opret</a>
+      </div>
+      <h2 v-if='waiting' class='waiting'>
+        Søger efter pumpe-data
+        <div class="spinner"></div>
+      </h2>
+    </section>
+    <section v-if='pumpFound === false' class='notfound'>
+      <h2>Ingen pumpe fundet.</h2>
+      <a href='#' class="pumpCreate link" v-on:click='createPump'>Opret ny pumpe.</a>
+    </section>
+  </div>
+
+  <div v-if='!waiting && pumpFound' class='card app'>
   <section class="airportNotice"><h2 class="printHeadline">Insulin Pump Certficate</h2>
    <p id='patientName'></p>
    <p>It is hereby certified that this patient has Type 1 diabetes and is treated with an insulin pump.</p>
@@ -56,18 +80,18 @@
    tel: +45 36 32 33 88</i></p>
    </br>
   </section>
-  <section v-bind:class="{ initialSearch: !pumpFound }" class='pump'>
+  <section class='pump'>
     <div class="container">
-    <h2 class="printHeadline">Pumpe indstillinger</h2>
-    <label for="pumpid">Pumpe ID:</label>
-    <input placeholder="Pumpe ID" autofocus="autofocus" class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
-    <span class='pumpCreate'></span>
-    <a
-      href='#'
-      class="pumpCreate button"
-      v-if='!pumpFound'
-      v-on:click='loadSample'>
-      <i class="fa fa-search" aria-hidden="true"></i> Søg eller opret</a>
+      <h2 class="printHeadline">Pumpe indstillinger</h2>
+      <label for="pumpid">Pumpe ID:</label>
+      <input placeholder="Pumpe ID" autofocus="autofocus" class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
+      <span class='pumpCreate'></span>
+      <a
+        href='#'
+        class="pumpCreate button"
+        v-if='!pumpFound'
+        v-on:click='loadSample'>
+        <i class="fa fa-search" aria-hidden="true"></i> Søg eller opret</a>
     </div>
   </section>
   <a
@@ -78,12 +102,6 @@
     <span class='close-text'>luk pumpe</span>
     <span class='close-icon fa fa-times-circle'></span>
   </a>
-  <section v-if='pumpFound === false' class='notfound'>
-    <h2>Ingen pumpe fundet.</h2>
-    <a href='#' class="pumpCreate link" v-on:click='createPump'>Opret ny pumpe.</a>
-  </section>
-  <section v-if='waiting' class='waiting'><h2>Søger efter pumpe-data<div class="spinner"></div>
-  </h2></section>
   <section v-if='!waiting && pumpFound' class='pumpSettings'>
     <div class='pumpModel'>
       <label for="pumpModel">Pumpefirma og -model:</label><input :disabled='disableInput' class='singleInput' v-model='settings.pumpModel' type="text" id="pumpModel">

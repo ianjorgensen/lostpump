@@ -108,12 +108,17 @@ body {
         padding-left: 15px;
       }
     }
-    p.description {
+    .description {
+      margin-top: 5px;
+      line-height: 1.6em;
       position: relative;
       font-size: 0.8em;
       color: $secFont;
       text-align: justify;
       overflow: hidden;
+    }
+    .hospitals {
+      padding-top: 30px;
     }
 
 }
@@ -141,13 +146,12 @@ label, .pump {
   //left: 50%;
   //transform: translate(-50%, 0);
 
-  .container {
-  width: 400px;
-  margin: 0 auto;
-  position: relative;
-  right: 15px;
+  .initialSearch-inner {
+    margin-left: 15px;
+    width: 400px;
+    position: relative;
+    right: 15px;
   }
-
 
   label {
     display: none;
@@ -447,19 +451,16 @@ td:last-child {
 /*    SYSTEM STATUS FEEDBACK SECTIONS */
 
 .notfound {
-  padding-top: 40px;
+  padding-top: 20px;
   font-size: 16px;
 }
 
 .waiting, .notfound {
-
-
-  h2 {
+    width: 430px;
     font-size: $bigSize;
+    color: #74cc99;
 //    padding: 20px 30px;
     border-radius: 4px;
-    display: inline-block;
-  }
 }
 
 .notfound h2 {
@@ -471,7 +472,7 @@ td:last-child {
   color: #74cc99;
 }
 .waiting {
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 /*     LOAD ANIMATION */
@@ -783,4 +784,7 @@ $green: #74cc99;
 }
 .fa-heart {
   color: #d66c51;
+}
+.search {
+  padding-top: 25px;
 }
