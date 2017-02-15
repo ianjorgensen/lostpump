@@ -159,17 +159,17 @@ label, .pump {
 
   input {
     width: 100%;
-    padding: 15px;
+    padding: 8px;
     height: 26px;
     border-radius: 5px !important;
   }
   a.button {
     position: relative;
-    bottom: 53px;
-    left: 27px;
+    bottom: 37px;
+    left: 10px;
     float: right;
     margin: none !important;
-    padding: 18px 10px !important;
+    padding: 9px 10px !important;
     font-size: 0.85em;
     font-weight: 400;
     text-transform: uppercase;
@@ -786,5 +786,5 @@ $green: #74cc99;
   color: #d66c51;
 }
 .search {
-  padding-top: 25px;
+  padding-top: 20px;
 }
