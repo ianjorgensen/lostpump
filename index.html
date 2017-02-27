@@ -68,7 +68,7 @@
     </section>
   </div>
 
-  <div v-if='!waiting && pumpFound' class='card app'>
+  <div v-if='!waiting && pumpFound' class='card app card-flex'>
   <section class="airportNotice"><h2 class="printHeadline">Insulin Pump Certficate</h2>
    <p id='patientName'></p>
    <p>It is hereby certified that this patient has Type 1 diabetes and is treated with an insulin pump.</p>
@@ -80,60 +80,65 @@
    tel: +45 36 32 33 88</i></p>
    </br>
   </section>
-  <section class='pump'>
-    <div class="container">
-      <h2 class="printHeadline">Pumpe indstillinger</h2>
-      <label for="pumpid">Pumpe ID:</label>
-      <input placeholder="Pumpe ID" autofocus="autofocus" class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
-      <span class='pumpCreate'></span>
-      <a
-        href='#'
-        class="pumpCreate button"
-        v-if='!pumpFound'
-        v-on:click='loadSample'>
-        <i class="fa fa-search" aria-hidden="true"></i> Søg eller opret</a>
-    </div>
-  </section>
-  <a
-    href='/'
-    class='close hideInPrint'
-    tabindex="-1"
-    v-if='pumpFound && !disableInputGlobal'>
-    <span class='close-text'>luk pumpe</span>
-    <span class='close-icon fa fa-times-circle'></span>
-  </a>
-  <section v-if='!waiting && pumpFound' class='pumpSettings'>
-    <div class='pumpModel'>
-      <label for="pumpModel">Pumpefirma og -model:</label><input :disabled='disableInput' class='singleInput' v-model='settings.pumpModel' type="text" id="pumpModel">
-    </div>
-    <h2>Basalrate</h2>
-    <settings-module :disableInput='disableInput':propdata='settings.basal'></settings-module>
-    <ol>
-      <li>
-        <h2>Kulhydrat-insulin-forhold</h2>
-        <settings-module :propdata='settings.carbRatio'></settings-module>
-      </li>
-      <li>
-        <h2>Insulin-sensitivitet</h2>
-        <settings-module :propdata='settings.insulinSensitivity'></settings-module>
-      </li>
-      <li>
-        <h2>Mål-blodsukker</h2>
-        <settings-module :propdata='settings.bgTarget'></settings-module>
-        </ol>
-      </li>
-    </ol>
-    <div class='clear'></div>
-    <div class='insulinActionTime'>
-      <label for="insulinActionTime">Aktiv insulin-tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
-    </div>
-    <div class="menu" :class='{ "menu-stretch": !disableInputGlobal }'>
-      <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
-      <a class="button save clipboard" v-on:click='clipboard'>Kopiér til journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
-      <a class='button email print' target='_black' :href="'mailto:?subject=Dine Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-envelope" aria-hidden="true"></i></a>
-      <a class="button print" v-on:click='print'>Udskriv <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
-    </div>
-  </section>
+  <div class='pump-settings-container-order'>
+    <div></div>
+    <div class="page-break"></div>
+    <section class='pump'>
+      <div class="container">
+
+        <h2 class="printHeadline">Pumpe indstillinger</h2>
+        <label for="pumpid">Pumpe ID:</label>
+        <input placeholder="Pumpe ID" autofocus="autofocus" class='singleInput' :disabled='disableInput' v-model='pumpid' type="text" id="pumpid" v-on:keyup.enter='loadSample'>
+        <span class='pumpCreate'></span>
+        <a
+          href='#'
+          class="pumpCreate button"
+          v-if='!pumpFound'
+          v-on:click='loadSample'>
+          <i class="fa fa-search" aria-hidden="true"></i> Søg eller opret</a>
+      </div>
+    </section>
+    <a
+      href='/'
+      class='close hideInPrint'
+      tabindex="-1"
+      v-if='pumpFound && !disableInputGlobal'>
+      <span class='close-text'>luk pumpe</span>
+      <span class='close-icon fa fa-times-circle'></span>
+    </a>
+    <section v-if='!waiting && pumpFound' class='pumpSettings'>
+      <div class='pumpModel'>
+        <label for="pumpModel">Pumpefirma og -model:</label><input :disabled='disableInput' class='singleInput' v-model='settings.pumpModel' type="text" id="pumpModel">
+      </div>
+      <h2>Basalrate</h2>
+      <settings-module :disableInput='disableInput':propdata='settings.basal'></settings-module>
+      <ol>
+        <li>
+          <h2>Kulhydrat-insulin-forhold</h2>
+          <settings-module :propdata='settings.carbRatio'></settings-module>
+        </li>
+        <li>
+          <h2>Insulin-sensitivitet</h2>
+          <settings-module :propdata='settings.insulinSensitivity'></settings-module>
+        </li>
+        <li>
+          <h2>Mål-blodsukker</h2>
+          <settings-module :propdata='settings.bgTarget'></settings-module>
+          </ol>
+        </li>
+      </ol>
+      <div class='clear'></div>
+      <div class='insulinActionTime'>
+        <label for="insulinActionTime">Aktiv insulin-tid:</label><input :disabled='disableInput' class='singleInput' v-model='settings.insulinActionTime' type="text" id="insulinActionTime">
+      </div>
+      <div class="menu" :class='{ "menu-stretch": !disableInputGlobal }'>
+        <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
+        <a class="button save clipboard" v-on:click='clipboard'>Kopiér til journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
+        <a class='button email print' target='_black' :href="'mailto:?subject=Dine Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-envelope" aria-hidden="true"></i></a>
+        <a class="button print" v-on:click='print'>Udskriv <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+      </div>
+    </section>
+  </div>
   <section v-if='!waiting && !!regiment && showMDI' class='regiment'>
     <h2 class="printHeadline">MDI Behandling</h2>
     <p><i>Hvis din insulinpumpe stopper med at fungere, må du overgå til behandling med insulinpen, indtil en ny kan skaffes.</i></p>
@@ -186,7 +191,6 @@
         </ul>
       </li>
     </ol>
-
   </section>
   <a
     class="showMDI hideInPrint"

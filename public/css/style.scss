@@ -52,7 +52,7 @@ $inputColor: #ffffff;
 $thBG: rgb(98, 122, 128);
 
 $bigSize: 16px;
-$printTextSize: 0.4em;
+$printTextSize: 0.8em;
 
 html,body {
   height: 100%;
@@ -546,15 +546,34 @@ footer {
   }
 }
 
+
+@media all {
+	.page-break	{ display: none; }
+}
+
 @media print {
+  .pump-settings-container-order {
+    order: 1000;
+  }
+
+  .page-break	{ display: block; page-break-before: always; }
+
+  .card-flex {
+    display: flex !important;
+    flex-direction: column;
+  }
+
   input {
+    display: box;
     padding: 0 !important;
     height: 20px;
   }
+
   .regiment {
     border: 0px !important;
     padding: 0px !important;
     padding-top: 20px;
+    display: box;
   }
 
   .singleInput {
@@ -594,13 +613,14 @@ footer {
 
   // Show stuff needed in print
   .airportNotice {
-    display: inherit !important;
+    display: block;
     font-size: $printTextSize;
     line-height: 1.0em;
   }
 
   .printHeadline {
-    display: inherit !important;
+    display: block;
+    font-size: 16px !important;
     text-transform: uppercase;
     text-decoration: underline;
   //  font-size: $bigSize !important;
@@ -740,7 +760,7 @@ $green: #74cc99;
   padding: 20px;
 }
 .close {
-  display: flex;
+  display: box;
 
   .close-text {
     font-size: 15px;
