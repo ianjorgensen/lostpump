@@ -5,7 +5,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
       waiting: false,
       pumpid: pumpTravelId || pumpid,
       url: window.location.origin,
-      emailPopup: false,
+      emailPopup: true,
       disableInput: false,
       til: '',
       sendingEmail: false,
@@ -51,7 +51,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
           self.sendingEmail = false;
           self.sentEmail = true;
           self.til = '';
-          
+
           setTimeout(function() {
             self.emailPopup = false;
             self.sentEmail = false;

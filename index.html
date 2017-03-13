@@ -43,7 +43,7 @@
     border-radius: 4px;
     margin-bottom: 20px;
   }
-  .emailpop-bot-button {
+  .emailpop-box-button {
     font-size: 16px;
     background: #7093ab;
     border: none;
@@ -52,8 +52,17 @@
     padding: 8px 20px;
     border-radius: 4px;
   }
-  .emailpop-bot-button:hover {
+  .emailpop-box-button:hover {
     background: #99cbed;
+  }
+  .emailpop-box-close {
+    float: right;
+    margin-bottom: 10px;
+    color: #d66c51;
+    cursor: pointer;
+  }
+  .emailpop-box-close:hover {
+    color: #d23912;
   }
   </style>
 </head>
@@ -64,8 +73,9 @@
     <div class='emailpop-overlay' v-on:click='closeEmail'></div>
     <div class='emailpop-box'>
       <div v-if='!sentEmail && !sendingEmail'>
+        <span v-on:click='closeEmail' class="emailpop-box-close close-icon fa fa-times-circle"></span>
         <input class='emailpop-box-input' placeholder="indtast modtager e-mailadresse her" autofocus="autofocus" class='singleInput' v-model='til' type="text" id="til">
-        <button class='emailpop-bot-button' v-on:click='sendEmail'>Send <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+        <button class='emailpop-box-button' v-on:click='sendEmail'>Send <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
       </div>
       <div v-if='sendingEmail'>Sender...</div>
       <div v-if='sentEmail'>Sendt!</div>
