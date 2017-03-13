@@ -35,11 +35,11 @@ app.get('/pump/:id', function(req, res) {
 app.get('/email', function(req, res) {
   var message = {
       "From": "hi@linehq.com",
-      "To": req.params.til,
+      "To": req.query.til,
       "Subject": "Pumpeindstillinger",
-      "TextBody": 'Pumpeindstillinger ' + req.params.link + '?pumptravelid=' + req.params.pumpid
+      "TextBody": 'Pumpeindstillinger ' + req.query.link + '?pumptravelid=' + req.query.pumpid
   };
-
+  
   postmark.send(message, function(error, success) {
     if(error) {
         res.send(JSON.stringify(message,null, '\t') + " Unable to send via postmark: " + error.message);
