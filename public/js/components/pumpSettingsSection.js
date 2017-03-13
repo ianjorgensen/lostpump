@@ -50,10 +50,12 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
         setTimeout(function() {
           self.sendingEmail = false;
           self.sentEmail = true;
+          self.til = '';
+          
           setTimeout(function() {
             self.emailPopup = false;
             self.sentEmail = false;
-            self.til = '';
+
           }, 500);
         }, 800);
       },

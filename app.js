@@ -38,9 +38,13 @@ app.get('/email', function(req, res) {
       "To": req.params.til,
       "Subject": "Pumpeindstillinger",
       "TextBody": 'Pumpeindstillinger ' + req.params.link + '?pumptravelid=' + req.params.pumpid
+  }, function(error, success) {
+    if(error) {
+        res.send("Unable to send via postmark: " + error.message);
+       return;
+    }
+    res.send("Sent to postmark for delivery");
   });
-
-  res.send('ok')
 })
 app.post('/save', function (req, res) {
   console.log(req.body);
