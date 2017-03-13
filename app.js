@@ -3,6 +3,9 @@ var app = express()
 var path = require('path')
 var mongojs = require('mongojs')
 var db = mongojs('root:root@ds133338.mlab.com:33338/lostpump', ['pumps'])
+if (process.env.POSTMARK_API_TOKEN)
+var postmark = require("postmark")(process.env.POSTMARK_API_TOKEN)
+
 
 app.use(express.static('public'))
 
@@ -27,6 +30,17 @@ app.get('/pump/:id', function(req, res) {
     console.log('pump', doc);
     res.send(doc || {notfound: true});
   })
+})
+
+app.get('/email', function(req, res) {
+  postmark.send({
+      "From": "hi@linehq.com",
+      "To": req.params.til,
+      "Subject": "Pumpeindstillinger",
+      "TextBody": 'Pumpeindstillinger ' + req.params.link + '?pumptravelid=' + req.params.pumpid
+  });
+
+  res.send('ok')
 })
 app.post('/save', function (req, res) {
   console.log(req.body);

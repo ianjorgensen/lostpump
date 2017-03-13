@@ -5,7 +5,11 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
       waiting: false,
       pumpid: pumpTravelId || pumpid,
       url: window.location.origin,
+      emailPopup: false,
       disableInput: false,
+      til: '',
+      sendingEmail: false,
+      sentEmail: false,
       disableInputGlobal: disableInput,
       pumpFound: null,
       showFullIntroText: false,
@@ -36,6 +40,28 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
           console.log('post',data);
           notify('gemt');
         });
+      },
+      sendEmail: function() {
+        $.get("/email?til" + this.til + '&pumpid=' + this.pumpid + '&link=' + this.url);
+        this.sendingEmail = true;
+
+        var self = this;
+
+        setTimeout(function() {
+          self.sendingEmail = false;
+          self.sentEmail = true;
+          setTimeout(function() {
+            self.emailPopup = false;
+            self.sentEmail = false;
+          }, 500);
+        }, 800);
+      },
+      email: function() {
+        this.emailPopup = true;
+      },
+      closeEmail: function() {
+        this.emailPopup = false;
+        this.til = '';
       },
       toggleMDI: function() {
         if (!this.showMDI) {

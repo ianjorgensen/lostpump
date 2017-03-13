@@ -16,10 +16,58 @@
 
   <!-- RESET IS CALLED THROUGH A PARTIAL AT THE BEGINNING OF SASS FILE -->
   <link rel='stylesheet' href='/css/style.min.css'>
+  <style>
+  .emailpop-overlay {
+    width: 100%;
+    top: 0;
+    background: rgba(31, 31, 31, 0.73);
+    position: fixed;
+    bottom: 0;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .emailpop-box {
+    z-index: 1000;
+    background: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    /* margin-top: -30px; Negative half of height. */
+    margin-left: -200px; /* Negative half of width. */
+    padding: 20px;
+    border-radius: 3px;
+  }
+  .emailpop-box-input {
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin: 20px 0;
+  }
+  .emailpop-bot-button {
+    font-size: 16px;
+    background: #3582d8;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 4px;
+  }
+  </style>
 </head>
 <body>
   <div id='app'>
   <div class='notification'></div>
+  <div v-if='emailPopup' class='emailpop'>
+    <div class='emailpop-overlay' v-on:click='closeEmail'></div>
+    <div class='emailpop-box'>
+      <div v-if='!sentEmail && !sendingEmail'>
+        <input class='emailpop-box-input' placeholder="indtast modtager e-mailadresse her" autofocus="autofocus" class='singleInput' v-model='til' type="text" id="til">
+        <button class='emailpop-bot-button' v-on:click='sendEmail'>Sende <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+      </div>
+      <div v-if='sendingEmail'>Sender</div>
+      <div v-if='sentEmail'>Sendt!</div>
+    </div>
+  </div>
   <div
     class='card-intro'
     v-if='!disableInputGlobal'>
@@ -134,7 +182,7 @@
       <div class="menu" :class='{ "menu-stretch": !disableInputGlobal }'>
         <a class="button save" v-on:click='save'>Gem<i class="fa fa-check" aria-hidden="true"></i></a>
         <a class="button save clipboard" v-on:click='clipboard'>Kopiér til journal<i class="fa fa-clipboard" aria-hidden="true"></i></a>
-        <a class='button email print' target='_black' :href="'mailto:?subject=Dine Pumpeindstillinger&body=Pumpeindstillinger ' + url + '?pumptravelid=' + pumpid">Email <i class="fa fa-envelope" aria-hidden="true"></i></a>
+        <a class='button email print' target='_black' v-on:click='email'>Email <i class="fa fa-envelope" aria-hidden="true"></i></a>
         <a class="button print" v-on:click='print'>Udskriv <i class="fa fa-file-text-o" aria-hidden="true"></i></a>
       </div>
     </section>
