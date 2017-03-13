@@ -33,17 +33,19 @@ app.get('/pump/:id', function(req, res) {
 })
 
 app.get('/email', function(req, res) {
-  postmark.send({
+  var message = {
       "From": "hi@linehq.com",
       "To": req.params.til,
       "Subject": "Pumpeindstillinger",
       "TextBody": 'Pumpeindstillinger ' + req.params.link + '?pumptravelid=' + req.params.pumpid
-  }, function(error, success) {
+  };
+
+  postmark.send(message, function(error, success) {
     if(error) {
-        res.send("Unable to send via postmark: " + error.message);
+        res.send(JSON.stringify(message,null, '\t') + " Unable to send via postmark: " + error.message);
        return;
     }
-    res.send("Sent to postmark for delivery");
+    res.send(JSON.stringify(message,null, '\t') +  " Sent to postmark for delivery");
   });
 })
 app.post('/save', function (req, res) {
