@@ -64,7 +64,9 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
       },
       closeEmail: function() {
         this.emailPopup = false;
-        this.til = '';
+        self.sendingEmail = false;
+        self.sentEmail = false;
+        self.til = '';
       },
       toggleMDI: function() {
         if (!this.showMDI) {
