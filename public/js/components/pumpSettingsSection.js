@@ -42,7 +42,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
         });
       },
       sendEmail: function() {
-        $.get("/email?til" + this.til + '&pumpid=' + this.pumpid + '&link=' + this.url);
+        $.get("/email?til=" + this.til + '&pumpid=' + this.pumpid + '&link=' + this.url);
         this.sendingEmail = true;
 
         var self = this;
@@ -53,6 +53,7 @@ var createSettingsSection = function(dataSettings, pumpid, pumpTravelId, disable
           setTimeout(function() {
             self.emailPopup = false;
             self.sentEmail = false;
+            self.til = '';
           }, 500);
         }, 800);
       },

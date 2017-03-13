@@ -30,7 +30,7 @@
     z-index: 1000;
     background: white;
     position: fixed;
-    top: 50%;
+    top: 20%;
     left: 50%;
     width: 400px;
     /* margin-top: -30px; Negative half of height. */
@@ -64,7 +64,7 @@
         <input class='emailpop-box-input' placeholder="indtast modtager e-mailadresse her" autofocus="autofocus" class='singleInput' v-model='til' type="text" id="til">
         <button class='emailpop-bot-button' v-on:click='sendEmail'>Sende <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
       </div>
-      <div v-if='sendingEmail'>Sender</div>
+      <div v-if='sendingEmail'>Sender...</div>
       <div v-if='sentEmail'>Sendt!</div>
     </div>
   </div>
